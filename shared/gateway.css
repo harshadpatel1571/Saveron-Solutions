@@ -3,7 +3,7 @@
 body { margin:0; min-width:320px; color:var(--ink); background:linear-gradient(120deg,rgba(6,21,54,.96),rgba(6,21,54,.84) 48%,rgba(6,21,54,.62)),url("../travel/assets/images/hero-global-lounge.png") 66% center/cover fixed; font:400 16px/1.6 Inter,Arial,sans-serif; }
 .gateway { min-height:100svh; width:min(1200px,calc(100% - 48px)); margin:auto; padding:36px 0 64px; }
 .brand { display:block; width:160px; }
-.brand img { display:block; width:100%; height:76px; object-fit:contain; object-position:left; filter:brightness(0) invert(1); }
+.brand img { display:block; width:120%; height:100%; object-fit:contain; object-position:left; filter:brightness(0) invert(1); }
 .gateway-content { max-width:1030px; margin:clamp(56px,11vh,150px) auto 0; text-align:center; }
 .eyebrow { margin:0 0 16px; color:var(--cyan); font-size:.75rem; font-weight:800; letter-spacing:.18em; }
 h1 { max-width:850px; margin:0 auto; font:700 clamp(2.8rem,6vw,5.2rem)/1.04 Georgia,serif; letter-spacing:-.04em; }
