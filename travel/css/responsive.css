@@ -159,4 +159,11 @@
   .form-visual {
     min-height:340px
   }
+  .contact-layout {
+    grid-template-columns:1fr;
+    gap:48px
+  }
+  .contact-form {
+    max-width:700px
+  }
 }
