@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const customerHtml = generateCustomerEmail(data.name || "Customer");
         
         const payload = {
-            adminEmail: "harshadpatel1571@gmail.com",
+            adminEmail: "info@saveronsolutions.com",
             adminSubject: `New Inquiry from ${data.name || 'Customer'} [IT Solutions]`,
             adminHtml: adminHtml,
             customerEmail: data.email,
