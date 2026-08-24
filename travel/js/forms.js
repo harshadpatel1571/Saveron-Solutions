@@ -50,7 +50,7 @@ async function submitForm(e) {
         const customerHtml = generateCustomerEmail(data.name || "Customer");
 
         const payload = {
-            adminEmail: "harshadpatel1571@gmail.com",
+            adminEmail: "info@saveronsolutions.com",
             adminSubject: `New Inquiry from ${data.name || 'Customer'} [${document.title || 'Travel'}]`,
             adminHtml: adminHtml,
             customerEmail: data.email,
