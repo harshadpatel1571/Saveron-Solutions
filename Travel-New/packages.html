@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nature Sanctuaries & Curated Itineraries | SAVERON Travel</title>
+  <meta name="description" content="Explore signature nature packages across Kerala waterfalls, Kashmir pine valleys, Meghalaya living bridges, Ladakh lakes, and Andaman lagoons. Curated by SAVERON Travel.">
+  <link rel="canonical" href="https://saveronsolutions.com/Travel-New/packages.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/travel-theme.css">
+  <script src="assets/js/travel-main.js" defer></script>
+</head>
+<body>
+
+  <!-- Floating Nature Audio Pill -->
+  <div class="nature-audio-pill" id="nature-sound-pill" title="Toggle Calming Waterfall & Bird Sounds">
+    <div class="sound-bars">
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+    </div>
+    <span class="sound-label">Nature Ambience: OFF</span>
+    <span style="font-size: 1rem;">🌿</span>
+  </div>
+
+  <!-- Zero-Overlap Header Wrapper -->
+  <div class="header-wrapper">
+    <div class="top-announcement">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="color: #6ee7b7; font-size: 0.9rem;">🍃</span>
+          <span>Serene waterfall retreats, bespoke nature holidays & corporate offsites across India.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 18px; font-size: 0.8rem;">
+          <a href="contact.html" style="color: #6ee7b7; text-decoration: underline;">Speak to a Travel Specialist</a>
+          <span>•</span>
+          <a href="tel:02814091215" style="color: #ffffff;">Desk: 02814 091215</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand-link">
+          <img src="assets/images/saveron-logo.png" alt="SAVERON Solutions" class="brand-logo">
+          <div class="brand-text">
+            SAVERON
+            <span>NATURE & TRAVEL</span>
+          </div>
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="services.html" class="nav-link">Experiences & Corporate</a></li>
+          <li><a href="packages.html" class="nav-link active">Nature Sanctuaries</a></li>
+          <li><a href="about.html" class="nav-link">About SAVERON</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <!-- Mobile-only inside drawer -->
+          <li class="nav-mobile-extra nav-mobile-divider"></li>
+          <li class="nav-mobile-extra"><a class="nav-mobile-portal-link" href="../IT-New/index.html"><span style="color: var(--emerald-primary);">◈</span> IT Solutions ↗</a></li>
+          <li class="nav-mobile-extra"><a class="btn btn-emerald nav-mobile-cta" href="contact.html">Plan Your Journey</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="../IT-New/index.html" class="nav-portal-link" title="Explore IT Solutions">
+            <span style="color: var(--emerald-primary);">◈</span> IT Solutions ↗
+          </a>
+          <a href="contact.html" class="btn btn-emerald" style="padding: 10px 24px; font-size: 0.88rem;">
+            Plan Your Journey
+          </a>
+          <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main id="main">
+
+    <!-- Page Header Hero (Clean Luxury) -->
+    <section class="section section-warm" style="padding-top: 170px; padding-bottom: 70px; text-align: center;">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 0;">
+          <div class="badge-leaf">SANCTUARY ITINERARIES</div>
+          <h1 class="section-title">Curated Nature Tours & <span style="color: var(--emerald-primary);">Scenic Escapes</span></h1>
+          <p class="section-subtitle">
+            Every itinerary listed below serves as an organic blueprint. Each package is 100% customisable to your specific travel dates, pacing, group size, and preferred hotel tiers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages Catalog Section -->
+    <section class="section">
+      <div class="container">
+
+        <!-- Search and Filter Bar -->
+        <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 24px 32px; margin-bottom: 48px; box-shadow: var(--shadow-sm); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; align-items: center;">
+          <input type="text" id="pkg-search" class="planner-input" placeholder="Search by destination or keyword (e.g. Kerala, Waterfalls, Kashmir)...">
+          
+          <select id="pkg-dest" class="planner-select">
+            <option value="all">All Sanctuaries</option>
+            <option value="kerala">Kerala Waterfalls & Munnar</option>
+            <option value="kashmir">Kashmir Pine Valleys</option>
+            <option value="meghalaya">Meghalaya Living Bridges</option>
+            <option value="ladakh">Ladakh Glacial Lakes</option>
+            <option value="rajasthan">Rajasthan Royal Lakes</option>
+            <option value="himachal">Himachal Cedar Woods</option>
+            <option value="goa">Goa Coastal Palms</option>
+            <option value="andaman">Andaman Lagoons</option>
+          </select>
+
+          <select id="pkg-type" class="planner-select">
+            <option value="all">All Travel Styles</option>
+            <option value="nature">Waterfall & Nature</option>
+            <option value="couple">Couples & Restorative</option>
+            <option value="family">Family Sanctuary</option>
+            <option value="luxury">Signature Luxury Palace</option>
+          </select>
+        </div>
+
+        <!-- Sanctuaries Grid with Rich Photos -->
+        <div class="sanctuaries-grid" id="packages-list">
+
+          <!-- Card 1: Kerala -->
+          <article class="sanctuary-card pkg-item" data-dest="kerala" data-type="couple">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80" alt="Kerala Palm Backwaters" loading="lazy">
+              <span class="sanctuary-tag">7 DAYS / 6 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Kerala Backwaters & Munnar Hills</h3>
+              <p>
+                Misty tea plantations in Munnar, Cheeyappara waterfalls, spice trails of Thekkady, and private luxury houseboats in Alleppey.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Kochi &bull; Munnar &bull; Thekkady &bull; Alleppey &bull; Kovalam
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Kerala+Backwaters+and+Munnar" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Kashmir -->
+          <article class="sanctuary-card pkg-item" data-dest="kashmir" data-type="nature">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=900&q=80" alt="Kashmir Green Valley" loading="lazy">
+              <span class="sanctuary-tag">6 DAYS / 5 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Kashmir Pine Valleys & Meadows</h3>
+              <p>
+                Pine-fringed gondola rides in Gulmarg, trout streams in Betaab Valley, tranquil Dal Lake shikara cruises, and Pahalgam stays.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Srinagar &bull; Gulmarg &bull; Pahalgam &bull; Srinagar
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Kashmir+Pine+Valleys" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Meghalaya -->
+          <article class="sanctuary-card pkg-item" data-dest="meghalaya" data-type="nature">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1581791534721-e599df4417f7?auto=format&fit=crop&w=900&q=80" alt="Meghalaya Green Cascades" loading="lazy">
+              <span class="sanctuary-tag">8 DAYS / 7 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Meghalaya Waterfalls & Living Bridges</h3>
+              <p>
+                The roaring cascades of Nohkalikai, ancient double-decker root bridges in Nongriat, transparent boat rides on Dawki River, and Cherrapunji clouds.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Guwahati &bull; Shillong &bull; Cherrapunji &bull; Dawki &bull; Kaziranga
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Meghalaya+Waterfalls" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Ladakh -->
+          <article class="sanctuary-card pkg-item" data-dest="ladakh" data-type="nature">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=80" alt="Ladakh Turquoise Lake" loading="lazy">
+              <span class="sanctuary-tag">7 DAYS / 6 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Ladakh Glacial Lakes & Monasteries</h3>
+              <p>
+                The ethereal turquoise waters of Pangong Tso, sand dunes of Nubra Valley, Khardung La pass, and cliffside ancient monasteries.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Leh &bull; Nubra &bull; Turtuk &bull; Pangong Lake &bull; Leh
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Ladakh+Glacial+Lakes" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5: Rajasthan -->
+          <article class="sanctuary-card pkg-item" data-dest="rajasthan" data-type="luxury">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80" alt="Rajasthan Lake Palace" loading="lazy">
+              <span class="sanctuary-tag">8 DAYS / 7 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Royal Rajasthan & Lake Sanctuaries</h3>
+              <p>
+                Heritage palace stays on Lake Pichola, private fort tours in Jaipur, starlit desert camps in Jaisalmer, and tiger safaris in Ranthambore.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Jaipur &bull; Jodhpur &bull; Ranthambore &bull; Udaipur
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Royal+Rajasthan+Experience" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6: Himachal -->
+          <article class="sanctuary-card pkg-item" data-dest="himachal" data-type="family">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1591779051646-15c51abde704?auto=format&fit=crop&w=900&q=80" alt="Himachal Green Hills" loading="lazy">
+              <span class="sanctuary-tag">6 DAYS / 5 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Himachal Cedar Woods & Streams</h3>
+              <p>
+                Colonial charm in Shimla, alpine cedar woods in Manali, rushing mountain streams, and snow adventures in Solang Valley.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Chandigarh &bull; Shimla &bull; Kufri &bull; Manali &bull; Solang
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Himachal+Cedar+Woods" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 7: Goa -->
+          <article class="sanctuary-card pkg-item" data-dest="goa" data-type="couple">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80" alt="Goa Tropical Coast" loading="lazy">
+              <span class="sanctuary-tag">4 DAYS / 3 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Goa Secluded Coastal Hideaway</h3>
+              <p>
+                A tranquil seaside break balanced between 5-star beachfront villas, Dudhsagar waterfall visits, and private catamaran cruises.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> South Goa &bull; Dudhsagar Falls &bull; Private Yacht
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Goa+Coastal+Hideaway" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 8: Andaman -->
+          <article class="sanctuary-card pkg-item" data-dest="andaman" data-type="nature">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=900&q=80" alt="Andaman Turquoise Ocean" loading="lazy">
+              <span class="sanctuary-tag">6 DAYS / 5 NIGHTS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Andaman Coral Lagoons & Rainforests</h3>
+              <p>
+                Pristine island living with catamaran transfers, Radhanagar beach sunsets, Neil Island coral walks, and scuba diving.
+              </p>
+              <div style="background: var(--bg-sand); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 20px; font-size: 0.85rem; color: var(--text-body);">
+                <strong>Route:</strong> Port Blair &bull; Havelock Island &bull; Neil Island
+              </div>
+              <div class="sanctuary-meta">
+                <span style="color: var(--emerald-primary);">100% Customisable</span>
+                <a href="contact.html?pkg=Andaman+Coral+Lagoons" class="action-link">Inquire Route →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Route Request CTA -->
+    <section class="section section-warm" style="text-align: center;">
+      <div class="container">
+        <div style="max-width: 740px; margin: 0 auto; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 48px; box-shadow: var(--shadow-md);">
+          <div class="badge-leaf">HAVE A SPECIFIC SANCTUARY IN MIND?</div>
+          <h2 style="font-family: var(--font-serif); font-size: 2.4rem; color: var(--forest-dark); margin-bottom: 16px;">We Build 100% Bespoke Nature Routes</h2>
+          <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 30px;">
+            Looking for secluded treehouses, private tea estate bungalows, or specific multi-city routes? Our master travel planners will tailor every detail.
+          </p>
+          <a href="contact.html" class="btn btn-emerald">Request Custom Sanctuary Proposal →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        
+        <div class="footer-brand">
+          <a href="index.html" class="brand-link" style="filter: brightness(0) invert(1);">
+            <img src="assets/images/saveron-logo.png" alt="SAVERON" class="brand-logo">
+          </a>
+          <p>
+            SAVERON SOLUTIONS PRIVATE LIMITED provides enterprise corporate travel management, curated nature holiday itineraries, and reliable end-to-end ground coordination across India.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Experiences & Services</a></li>
+            <li><a href="packages.html">Nature Sanctuaries</a></li>
+            <li><a href="about.html">About SAVERON</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Sanctuaries</h4>
+          <ul class="footer-nav-list">
+            <li><a href="packages.html?dest=kerala">Kerala Backwaters & Munnar</a></li>
+            <li><a href="packages.html?dest=kashmir">Kashmir Pine Valleys</a></li>
+            <li><a href="packages.html?dest=meghalaya">Meghalaya Waterfalls</a></li>
+            <li><a href="packages.html?dest=ladakh">Ladakh Lakes</a></li>
+            <li><a href="packages.html?dest=andaman">Andaman Lagoons</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">SAVERON Ecosystem</h4>
+          <ul class="footer-nav-list">
+            <li><a href="../IT-New/index.html">IT Solutions Portal ↗</a></li>
+            <li><a href="services.html#corporate">Corporate Desk</a></li>
+            <li><a href="services.html#mice">Group Offsites</a></li>
+            <li><a href="contact.html">24×7 Traveler Support</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span data-year>2026</span> SAVERON SOLUTIONS PRIVATE LIMITED. All rights reserved.
+        </div>
+        <div style="display: flex; gap: 20px;">
+          <span>CIN: Registered in India</span>
+          <span>&bull;</span>
+          <a href="../IT-New/index.html" style="color: #6ee7b7;">Visit IT Division ↗</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Filter & URL Parameter Handler Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('pkg-search');
+      const destSelect = document.getElementById('pkg-dest');
+      const typeSelect = document.getElementById('pkg-type');
+      const items = document.querySelectorAll('.pkg-item');
+
+      // Check URL parameters for pre-selected filters from Quick Planner
+      const params = new URLSearchParams(window.location.search);
+      const urlDest = params.get('dest');
+      const urlType = params.get('type');
+
+      if (urlDest && destSelect) destSelect.value = urlDest;
+      if (urlType && typeSelect) typeSelect.value = urlType;
+
+      function filterPackages() {
+        const query = (searchInput?.value || '').toLowerCase();
+        const dest = destSelect?.value || 'all';
+        const type = typeSelect?.value || 'all';
+
+        items.forEach(item => {
+          const itemText = item.innerText.toLowerCase();
+          const itemDest = item.getAttribute('data-dest');
+          const itemType = item.getAttribute('data-type');
+
+          const matchQuery = !query || itemText.includes(query);
+          const matchDest = dest === 'all' || itemDest === dest;
+          const matchType = type === 'all' || itemType === type;
+
+          if (matchQuery && matchDest && matchType) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+
+      searchInput?.addEventListener('input', filterPackages);
+      destSelect?.addEventListener('change', filterPackages);
+      typeSelect?.addEventListener('change', filterPackages);
+
+      filterPackages();
+    });
+  </script>
+
+</body>
+</html>

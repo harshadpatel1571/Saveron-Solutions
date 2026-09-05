@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAVERON Travel | Luxury Nature Escapes, Waterfall Retreats & Corporate Journeys</title>
+  <meta name="description" content="Discover SAVERON Travel & Tourism. Experience pristine waterfalls, lush mountain retreats, restorative backwaters, and luxury corporate travel management across India.">
+  <link rel="canonical" href="https://saveronsolutions.com/Travel-New/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/travel-theme.css">
+  <script src="assets/js/travel-3d.js" defer></script>
+  <script src="assets/js/travel-main.js" defer></script>
+</head>
+<body>
+
+  <!-- Floating Nature Audio Pill (Waterfall & Birds Ambience) -->
+  <div class="nature-audio-pill" id="nature-sound-pill" title="Click to listen to relaxing waterfall and birds">
+    <div class="sound-bars">
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+    </div>
+    <span class="sound-label">Nature Ambience: OFF</span>
+    <span style="font-size: 1rem;">🌿</span>
+  </div>
+
+  <!-- Zero-Overlap Header Wrapper -->
+  <div class="header-wrapper">
+    <div class="top-announcement">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="color: #6ee7b7; font-size: 0.9rem;">🍃</span>
+          <span>Serene waterfall retreats, bespoke nature holidays & corporate offsites across India.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 18px; font-size: 0.8rem;">
+          <a href="contact.html" style="color: #6ee7b7; text-decoration: underline;">Speak to a Travel Specialist</a>
+          <span>•</span>
+          <a href="tel:02814091215" style="color: #ffffff;">Desk: 02814 091215</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand-link">
+          <img src="assets/images/saveron-logo.png" alt="SAVERON Solutions" class="brand-logo">
+          <div class="brand-text">
+            SAVERON
+            <span>NATURE & TRAVEL</span>
+          </div>
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="services.html" class="nav-link">Experiences & Corporate</a></li>
+          <li><a href="packages.html" class="nav-link">Nature Sanctuaries</a></li>
+          <li><a href="about.html" class="nav-link">About SAVERON</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <!-- Mobile-only inside drawer -->
+          <li class="nav-mobile-extra nav-mobile-divider"></li>
+          <li class="nav-mobile-extra"><a class="nav-mobile-portal-link" href="../IT-New/index.html"><span style="color: var(--emerald-primary);">◈</span> IT Solutions ↗</a></li>
+          <li class="nav-mobile-extra"><a class="btn btn-emerald nav-mobile-cta" href="contact.html">Plan Your Journey</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="../IT-New/index.html" class="nav-portal-link" title="Explore IT Solutions">
+            <span style="color: var(--emerald-primary);">◈</span> IT Solutions ↗
+          </a>
+          <a href="contact.html" class="btn btn-emerald" style="padding: 10px 24px; font-size: 0.88rem;">
+            Plan Your Journey
+          </a>
+          <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main id="main">
+
+    <!-- Cinematic Luxury Nature & Waterfall Hero Section -->
+    <section class="hero-nature-section">
+      <div class="hero-background-media">
+        <!-- High-Res Scenic Rainforest Waterfall -->
+        <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=2000&q=85" alt="Lush Waterfall in Green Rainforest">
+      </div>
+      <div class="hero-overlay-gradient"></div>
+
+      <!-- Canvas for gentle falling water mist and drifting leaves -->
+      <div style="position: absolute; inset: 0; z-index: 2; pointer-events: none;">
+        <canvas id="nature-mist-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+      </div>
+
+      <div class="container">
+        <div class="hero-nature-content">
+          <div class="badge-leaf">
+            <span class="leaf-dot"></span>
+            CURATED NATURE RETREATS & LUXURY ESCAPES
+          </div>
+          
+          <h1 class="hero-nature-title">
+            Where Nature Inspires & <em>Journeys Restore</em>
+          </h1>
+
+          <p class="hero-nature-desc">
+            Immerse yourself in cascading waterfalls, mist-kissed mountain tea valleys, tranquil backwaters, and pristine coastal sanctuaries. Handcrafted luxury travel, delivered with effortless care.
+          </p>
+
+          <div class="hero-btn-group">
+            <a href="#destinations" class="btn btn-emerald">
+              Explore Sanctuaries →
+            </a>
+            <a href="services.html" class="btn btn-outline">
+              Corporate & Bespoke Retiring
+            </a>
+          </div>
+
+          <!-- Trust Highlights -->
+          <div style="display: flex; gap: 28px; font-size: 0.88rem; font-weight: 600; color: var(--forest-dark);">
+            <div><span style="color: var(--emerald-primary);">✓</span> 100% Private Custom Itineraries</div>
+            <div><span style="color: var(--emerald-primary);">✓</span> Handpicked Eco-Luxury Resorts</div>
+            <div><span style="color: var(--emerald-primary);">✓</span> 24×7 In-Trip Concierge</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Luxury Trip Planner Quick Search Box -->
+    <div class="container">
+      <div class="trip-planner-box">
+        <form id="quick-planner-form">
+          <div class="planner-grid">
+            
+            <div class="planner-col">
+              <label class="planner-label" for="planner-dest">Sanctuary / Region</label>
+              <select id="planner-dest" class="planner-select">
+                <option value="all">All Nature Destinations</option>
+                <option value="kerala">Kerala Waterfalls & Munnar</option>
+                <option value="kashmir">Kashmir Pine Valleys</option>
+                <option value="meghalaya">Meghalaya Living Bridges</option>
+                <option value="ladakh">Ladakh Glacial Lakes</option>
+                <option value="rajasthan">Rajasthan Royal Lakes</option>
+                <option value="goa">Goa Secluded Coast</option>
+                <option value="andaman">Andaman Coral Lagoons</option>
+              </select>
+            </div>
+
+            <div class="planner-col">
+              <label class="planner-label" for="planner-type">Experience Style</label>
+              <select id="planner-type" class="planner-select">
+                <option value="all">All Travel Styles</option>
+                <option value="waterfalls">Waterfall & Rainforest</option>
+                <option value="couple">Couples & Restorative</option>
+                <option value="family">Family Nature Break</option>
+                <option value="luxury">Signature Luxury Palace</option>
+              </select>
+            </div>
+
+            <div class="planner-col">
+              <label class="planner-label" for="planner-duration">Duration</label>
+              <select id="planner-duration" class="planner-select">
+                <option value="any">Flexible Duration</option>
+                <option value="short">4 - 5 Days Break</option>
+                <option value="medium">6 - 8 Days Signature</option>
+                <option value="long">9+ Days Grand Tour</option>
+              </select>
+            </div>
+
+            <div class="planner-col">
+              <label class="planner-label" for="planner-guests">Travelers</label>
+              <select id="planner-guests" class="planner-select">
+                <option value="2">2 Guests (Couple)</option>
+                <option value="family">Family (3-5 Guests)</option>
+                <option value="group">Group / Delegation (6+)</option>
+              </select>
+            </div>
+
+            <div>
+              <button type="submit" class="btn btn-emerald" style="width: 100%; height: 50px;">
+                Search Sanctuaries 🔍
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Featured Sanctuaries Section -->
+    <section class="section" id="destinations">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-leaf">HANDPICKED EXPERIENCES</div>
+          <h2 class="section-title">Breathtaking Sanctuaries of India</h2>
+          <p class="section-subtitle">
+            Immerse yourself in destinations celebrated for natural splendor, serene waters, and warm hospitality.
+          </p>
+        </div>
+
+        <div class="sanctuaries-grid">
+          
+          <!-- Card 1: Kerala -->
+          <article class="sanctuary-card">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80" alt="Kerala Backwaters and Palm Trees" loading="lazy">
+              <span class="sanctuary-tag">WATERFALLS & BACKWATERS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Kerala Backwaters & Munnar Hills</h3>
+              <p>
+                Cheeyappara and Athirappilly waterfalls, misty tea terraces in Munnar, spice plantations in Thekkady, and private luxury houseboats in Alleppey.
+              </p>
+              <div class="sanctuary-meta">
+                <span>⏱ 7 Days / 6 Nights</span>
+                <a href="packages.html?dest=kerala" class="action-link">View Itinerary →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Kashmir -->
+          <article class="sanctuary-card">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=900&q=80" alt="Kashmir Mountains and Green Valley" loading="lazy">
+              <span class="sanctuary-tag">PINE VALLEYS & MEADOWS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Kashmir Valley & Alpine Escapes</h3>
+              <p>
+                Pine-fringed gondola rides in Gulmarg, trout streams in Betaab Valley, tranquil Dal Lake shikara cruises, and peaceful mountain stays in Pahalgam.
+              </p>
+              <div class="sanctuary-meta">
+                <span>⏱ 6 Days / 5 Nights</span>
+                <a href="packages.html?dest=kashmir" class="action-link">View Itinerary →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Meghalaya -->
+          <article class="sanctuary-card">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1581791534721-e599df4417f7?auto=format&fit=crop&w=900&q=80" alt="Meghalaya Green Hills and Waterfalls" loading="lazy">
+              <span class="sanctuary-tag">LIVING BRIDGES & FALLS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Meghalaya & Living Root Bridges</h3>
+              <p>
+                The roaring cascades of Nohkalikai, ancient double-decker root bridges in Nongriat, crystal-clear boat rides on Dawki River, and Cherrapunji clouds.
+              </p>
+              <div class="sanctuary-meta">
+                <span>⏱ 8 Days / 7 Nights</span>
+                <a href="packages.html?dest=meghalaya" class="action-link">View Itinerary →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Ladakh -->
+          <article class="sanctuary-card">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=80" alt="Ladakh Turquoise Lake and Mountains" loading="lazy">
+              <span class="sanctuary-tag">GLACIAL LAKES</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Ladakh Glacial Lakes & Passes</h3>
+              <p>
+                The ethereal turquoise waters of Pangong Tso, sand dunes of Nubra Valley, Khardung La pass, and cliffside ancient monasteries.
+              </p>
+              <div class="sanctuary-meta">
+                <span>⏱ 7 Days / 6 Nights</span>
+                <a href="packages.html?dest=ladakh" class="action-link">View Itinerary →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5: Rajasthan -->
+          <article class="sanctuary-card">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80" alt="Rajasthan Royal Palace on Lake" loading="lazy">
+              <span class="sanctuary-tag">ROYAL LAKES & PALACES</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Royal Rajasthan & Lake Sanctuaries</h3>
+              <p>
+                Heritage palace stays on Lake Pichola, private fort tours in Jaipur, starlit desert camps in Jaisalmer, and tiger safaris in Ranthambore.
+              </p>
+              <div class="sanctuary-meta">
+                <span>⏱ 8 Days / 7 Nights</span>
+                <a href="packages.html?dest=rajasthan" class="action-link">View Itinerary →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6: Andaman -->
+          <article class="sanctuary-card">
+            <div class="sanctuary-image-wrap">
+              <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=900&q=80" alt="Andaman Tropical Turquoise Beach" loading="lazy">
+              <span class="sanctuary-tag">CORAL LAGOONS</span>
+            </div>
+            <div class="sanctuary-body">
+              <h3>Andaman Coral Lagoons & Rainforests</h3>
+              <p>
+                Radhanagar white sand sunsets in Havelock, scuba diving on Neil Island reefs, catamaran transfers, and luxury beachfront villa living.
+              </p>
+              <div class="sanctuary-meta">
+                <span>⏱ 6 Days / 5 Nights</span>
+                <a href="packages.html?dest=andaman" class="action-link">View Itinerary →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Travel with SAVERON (Warm Section) -->
+    <section class="section section-warm">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-leaf">THE SAVERON DISTINCTION</div>
+          <h2 class="section-title">Crafted with Care, Lived in Luxury</h2>
+          <p class="section-subtitle">
+            We believe the greatest journeys are seamless, restorative, and deeply authentic.
+          </p>
+        </div>
+
+        <div class="experience-grid">
+          
+          <div class="experience-card">
+            <div class="experience-icon">🌿</div>
+            <h3>Handcrafted Itineraries</h3>
+            <p>
+              No cookie-cutter tours. Every route, boutique property, and naturalist guide is curated to match your personal pacing and desires.
+            </p>
+          </div>
+
+          <div class="experience-card">
+            <div class="experience-icon">🏡</div>
+            <h3>Boutique Eco-Resorts</h3>
+            <p>
+              Stay at handpicked forest retreats, lakeside heritage palaces, and private tea bungalows with verified standards of luxury.
+            </p>
+          </div>
+
+          <div class="experience-card">
+            <div class="experience-icon">🛡️</div>
+            <h3>24×7 In-Trip Concierge</h3>
+            <p>
+              From prompt airport pickups to instant flight re-bookings and local guidance, our dedicated operations team remains with you always.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Corporate Offsites & Nature Retreats -->
+    <section class="section corporate-leadership-section">
+      <div class="container">
+        <div class="corporate-banner-card">
+          <div class="corporate-banner-content">
+            <div class="badge-leaf">ORGANIZATIONS & LEADERSHIP</div>
+            <h2 class="corporate-banner-title">
+              Inspire Your Team in Breathtaking Surroundings
+            </h2>
+            <p class="corporate-banner-desc">
+              SAVERON orchestrates executive offsites, leadership retreats, and annual corporate conferences in India's most serene nature resorts—complete with meeting facilities, group flight blocks, and team wellness experiences.
+            </p>
+            <div class="corporate-btn-group">
+              <a href="services.html#corporate" class="btn btn-emerald">Explore Corporate Retreats</a>
+              <a href="contact.html" class="btn btn-outline">Request Proposal</a>
+            </div>
+          </div>
+
+          <div class="corporate-standards-box">
+            <h3 class="corporate-standards-title">Corporate Desk Standards</h3>
+            <div class="corporate-standards-list">
+              <div class="corporate-standard-item">
+                <span class="standard-check">✓</span>
+                <span>High-volume flight ticketing & block allocations</span>
+              </div>
+              <div class="corporate-standard-item">
+                <span class="standard-check">✓</span>
+                <span>Centralized monthly invoicing & GST tax compliance</span>
+              </div>
+              <div class="corporate-standard-item">
+                <span class="standard-check">✓</span>
+                <span>Scenic retreat properties with conference banquets</span>
+              </div>
+              <div class="corporate-standard-item">
+                <span class="standard-check">✓</span>
+                <span>Dedicated Relationship Manager & 24×7 assistance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Consultation Section -->
+    <section class="section section-warm" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-leaf">LET'S CONNECT</div>
+          <h2 class="section-title">Begin Crafting Your Journey</h2>
+          <p class="section-subtitle">
+            Tell us about your dream destination, travel dates, or corporate requirements. A dedicated travel designer will respond within 24 hours.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <!-- Contact Info -->
+          <div class="contact-info-panel">
+            <div class="contact-card-item">
+              <div class="contact-card-icon">✉️</div>
+              <div>
+                <div class="contact-card-label">General & Inquiries</div>
+                <div class="contact-card-val"><a href="mailto:info@saveronsolutions.com">info@saveronsolutions.com</a></div>
+              </div>
+            </div>
+
+            <div class="contact-card-item">
+              <div class="contact-card-icon">💼</div>
+              <div>
+                <div class="contact-card-label">Corporate & Group Desk</div>
+                <div class="contact-card-val"><a href="mailto:corporate@saveronsolutions.com">corporate@saveronsolutions.com</a></div>
+              </div>
+            </div>
+
+            <div class="contact-card-item">
+              <div class="contact-card-icon">🌴</div>
+              <div>
+                <div class="contact-card-label">Holiday Planning Team</div>
+                <div class="contact-card-val"><a href="mailto:holidays@saveronsolutions.com">holidays@saveronsolutions.com</a></div>
+              </div>
+            </div>
+
+            <div class="contact-card-item">
+              <div class="contact-card-icon">📍</div>
+              <div>
+                <div class="contact-card-label">Head Office</div>
+                <div class="contact-card-val">India &bull; GPS: 22.31924° N, 70.76842° E</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Card -->
+          <div class="contact-form-card">
+            <form data-contact-form>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="home-name">Your Full Name <b>*</b></label>
+                  <input type="text" id="home-name" name="name" class="form-input" placeholder="e.g. Aditi Singhal" required>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label" for="home-email">Email Address <b>*</b></label>
+                  <input type="email" id="home-email" name="email" class="form-input" placeholder="aditi@example.com" required>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label" for="home-phone">Phone / WhatsApp <b>*</b></label>
+                  <input type="tel" id="home-phone" name="phone" class="form-input" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label" for="home-service">Destination / Interest <b>*</b></label>
+                  <select id="home-service" name="service" class="form-select" required>
+                    <option value="Kerala Backwaters & Waterfalls">Kerala Backwaters & Munnar</option>
+                    <option value="Kashmir Pine Valleys">Kashmir Pine Valleys</option>
+                    <option value="Meghalaya Waterfall Wonder">Meghalaya & Living Root Bridges</option>
+                    <option value="Ladakh Glacial Lakes">Ladakh & Pangong Tso</option>
+                    <option value="Royal Rajasthan & Lakes">Royal Rajasthan & Wildlife</option>
+                    <option value="Corporate Retreat & Offsite">Corporate Offsite & Retreat</option>
+                    <option value="Custom Bespoke Itinerary">Custom Bespoke Itinerary</option>
+                  </select>
+                </div>
+
+                <div class="form-field full-width">
+                  <label class="form-label" for="home-message">Trip Parameters & Preferences <b>*</b></label>
+                  <textarea id="home-message" name="message" class="form-textarea" rows="4" placeholder="Mention preferred travel dates, number of guests, stay tier, or specific experiences you desire..." required></textarea>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px;">
+                <button type="submit" class="btn btn-emerald" style="width: 100%;">
+                  Send Travel Inquiry 🌿
+                </button>
+                <div class="form-status" role="status" aria-live="polite"></div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (Deep Forest Luxury) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        
+        <div class="footer-brand">
+          <a href="index.html" class="brand-link" style="filter: brightness(0) invert(1);">
+            <img src="assets/images/saveron-logo.png" alt="SAVERON" class="brand-logo">
+          </a>
+          <p>
+            SAVERON SOLUTIONS PRIVATE LIMITED provides enterprise corporate travel management, curated nature holiday itineraries, and reliable end-to-end ground coordination across India.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Experiences & Services</a></li>
+            <li><a href="packages.html">Nature Sanctuaries</a></li>
+            <li><a href="about.html">About SAVERON</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Sanctuaries</h4>
+          <ul class="footer-nav-list">
+            <li><a href="packages.html?dest=kerala">Kerala Backwaters & Munnar</a></li>
+            <li><a href="packages.html?dest=kashmir">Kashmir Pine Valleys</a></li>
+            <li><a href="packages.html?dest=meghalaya">Meghalaya Waterfalls</a></li>
+            <li><a href="packages.html?dest=ladakh">Ladakh Lakes</a></li>
+            <li><a href="packages.html?dest=andaman">Andaman Lagoons</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">SAVERON Ecosystem</h4>
+          <ul class="footer-nav-list">
+            <li><a href="../IT-New/index.html">IT Solutions Portal ↗</a></li>
+            <li><a href="services.html#corporate">Corporate Desk</a></li>
+            <li><a href="services.html#mice">Group Offsites</a></li>
+            <li><a href="contact.html">24×7 Traveler Support</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span data-year>2026</span> SAVERON SOLUTIONS PRIVATE LIMITED. All rights reserved.
+        </div>
+        <div style="display: flex; gap: 20px;">
+          <span>CIN: Registered in India</span>
+          <span>&bull;</span>
+          <a href="../IT-New/index.html" style="color: #6ee7b7;">Visit IT Division ↗</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -58,11 +58,13 @@ async function submitForm(e) {
             customerHtml: customerHtml
         };
 
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-Vx0KtXJo4nXjk738RaxeOmlm-4YsuD0TlebPyFbVfyraFtxo4NiwWLP3Dm6bMCsKJg/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGvvzMZXMe-A4hBtC7nbV8xbisVOYaQvR--wc70bNc2fH37Te5rXHGR9t773yMlh1p/exec";
 
         if(GOOGLE_SCRIPT_URL) {
             await fetch(GOOGLE_SCRIPT_URL, {
-                method:"POST",
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(payload)
             });
         }
@@ -97,10 +99,10 @@ function generateAdminEmail(data) {
     return `
     <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 650px; margin: 0 auto; background: #f8fafc; padding: 20px;">
         <div style="background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);">
-            <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 40px 30px; text-align: center; border-bottom: 4px solid #3b82f6;">
-                <img src="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png" alt="Saveron Solutions" style="max-height: 45px; margin-bottom: 20px; display: inline-block; background-color: #ffffff; padding: 10px 20px; border-radius: 8px;">
-                <h2 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.5px;">New Enquiry Received</h2>
-                <p style="color: #94a3b8; margin: 10px 0 0 0; font-size: 15px;">A new inquiry requires your attention</p>
+            <div style="background: #ffffff; padding: 36px 30px; text-align: center; border-bottom: 3px solid #10b981;">
+                <img src="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png" alt="Saveron Solutions" style="max-height: 50px; width: auto; margin-bottom: 16px; display: inline-block;">
+                <h2 style="color: #062017; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">New Enquiry Received</h2>
+                <p style="color: #059669; margin: 8px 0 0 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">A new inquiry requires your attention</p>
             </div>
             
             <div style="padding: 40px 30px;">
@@ -123,10 +125,10 @@ function generateCustomerEmail(name) {
     <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 650px; margin: 0 auto; background: #f8fafc; padding: 20px;">
         <div style="background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);">
             
-            <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 50px 30px; text-align: center; border-bottom: 4px solid #3b82f6;">
-                <img src="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png" alt="Saveron Solutions" style="max-height: 45px; margin-bottom: 25px; display: inline-block; background-color: #ffffff; padding: 10px 20px; border-radius: 8px;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.5px;">Thank You!</h1>
-                <p style="color: #94a3b8; font-size: 16px; margin: 12px 0 0 0;">Your request was received successfully.</p>
+            <div style="background: #ffffff; padding: 40px 30px; text-align: center; border-bottom: 3px solid #10b981;">
+                <img src="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png" alt="Saveron Solutions" style="max-height: 50px; width: auto; margin-bottom: 20px; display: inline-block;">
+                <h1 style="color: #062017; margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.5px;">Thank You!</h1>
+                <p style="color: #059669; font-size: 15px; margin: 10px 0 0 0; font-weight: 600;">Your request was received successfully.</p>
             </div>
             
             <div style="padding: 50px 40px; text-align: center;">
@@ -137,7 +139,7 @@ function generateCustomerEmail(name) {
                     In the meantime, feel free to explore more about what we do.
                 </p>
                 
-                <a href="https://www.saveronsolutions.com/" style="display: inline-block; padding: 16px 36px; background-color: #3b82f6; color: #ffffff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); transition: all 0.2s; letter-spacing: 0.5px;">Visit Our Website</a>
+                <a href="https://www.saveronsolutions.com/" style="display: inline-block; padding: 16px 36px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3); transition: all 0.2s; letter-spacing: 0.5px;">Visit Our Website</a>
             </div>
             
             <div style="background: #f1f5f9; padding: 30px; text-align: center; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0;">

@@ -1,51 +1,281 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Saveron Solutions Private Limited delivers professional travel and tourism services, corporate travel solutions, curated holidays, IT services, website development and digital technology solutions for businesses.">
-  <meta name="author" content="Saveron Solutions Private Limited">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <title>
-    Saveron Solutions Private Limited | Travel, Tourism & IT Solutions
-  </title>
-  <link rel="canonical" href="https://www.saveronsolutions.com/it-solutions/index.html">
-
-  <link rel="icon" type="image/png" href="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png">
-  <link rel="shortcut icon" href="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png">
-  <link rel="apple-touch-icon" href="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SAVERON SOLUTIONS PRIVATE LIMITED — Corporate Gateway. Choose between our Luxury Nature & Corporate Travel division or our Next-Gen Enterprise IT Engineering division.">
+  <meta name="author" content="SAVERON SOLUTIONS PRIVATE LIMITED">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  
+  <title>SAVERON SOLUTIONS | Enterprise Portal & Gateway</title>
+  
+  <link rel="canonical" href="https://saveronsolutions.com/">
+  <link rel="icon" type="image/png" href="Travel-New/assets/images/saveron-logo.png">
+  <link rel="shortcut icon" href="Travel-New/assets/images/saveron-logo.png">
+  <link rel="apple-touch-icon" href="Travel-New/assets/images/saveron-logo.png">
+  
+  <meta name="theme-color" content="#040810">
+  <meta name="msapplication-TileColor" content="#040810">
   
   <link rel="stylesheet" href="shared/gateway.css">
 </head>
 
 <body>
-  <main class="gateway">
-    <a class="brand" href="index.html" aria-label="SAVERON SOLUTIONS PRIVATE LIMITED home">
-      <img src="travel/assets/images/saveron-logo.png" alt="SAVERON Solutions Private Limited">
-    </a>
-    <section class="gateway-content" aria-labelledby="gateway-title">
-      <p class="eyebrow">SAVERON SOLUTIONS PRIVATE LIMITED</p>
-      <h1 id="gateway-title">Two focused divisions. One dependable standard.</h1>
-      <p class="lead">Choose the specialist team that can take your next journey or digital initiative forward.</p>
-      <div class="division-grid">
-        <a class="division-card travel" href="travel/index.html">
-          <span class="division-icon" aria-hidden="true">✈</span>
-          <span class="division-label">Travel & Tourism</span>
-          <span>Premium corporate travel, curated holidays and complete journey coordination.</span>
-          <strong>Explore Travel Services <span aria-hidden="true">→</span></strong>
+
+  <!-- Ambient Dual Atmosphere -->
+  <div class="gateway-bg" aria-hidden="true">
+    <div class="bg-radial-travel"></div>
+    <div class="bg-radial-tech"></div>
+    <div class="bg-grid-overlay"></div>
+    <canvas id="gateway-canvas"></canvas>
+  </div>
+
+  <div class="gateway-wrapper">
+
+    <!-- Enterprise Header -->
+    <header class="gateway-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-block" aria-label="SAVERON SOLUTIONS Homepage">
+          <img src="Travel-New/assets/images/saveron-logo.png" alt="SAVERON Solutions Private Limited" class="brand-logo-img">
+          <div class="brand-name">
+            SAVERON
+            <span>SOLUTIONS PRIVATE LIMITED</span>
+          </div>
         </a>
-        <a class="division-card technology" href="it-solutions/index.html">
-          <span class="division-icon" aria-hidden="true">◈</span>
-          <span class="division-label">IT Solutions</span>
-          <span>Professional digital systems, websites and technology solutions for modern business.</span>
-          <strong>Explore IT Solutions <span aria-hidden="true">→</span></strong>
-        </a>
+
+        <div class="header-pill">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Enterprise Gateway</span>
+        </div>
       </div>
-    </section>
-  </main>
+    </header>
+
+    <main id="main">
+      <!-- Hero Section -->
+      <section class="gateway-hero" aria-labelledby="gateway-hero-title">
+        <div class="container">
+          <div class="hero-badge">
+            ◈ Corporate Portal &bull; Select Your Division ◈
+          </div>
+          
+          <h1 id="gateway-hero-title" class="hero-title">
+            One Dependable Standard.<br>
+            <span class="gradient-travel">Two Specialized</span> <span class="gradient-tech">Frontiers.</span>
+          </h1>
+          
+          <p class="hero-desc">
+            Welcome to the unified gateway of SAVERON SOLUTIONS PRIVATE LIMITED. Choose your dedicated division below to discover bespoke nature escapes & corporate travel, or architect modern enterprise software & digital systems.
+          </p>
+        </div>
+      </section>
+
+      <!-- Division Selection Portals -->
+      <section class="division-section" aria-label="Select Division">
+        <div class="container">
+          <div class="division-grid">
+
+            <!-- Portal 1: Nature & Travel Division -->
+            <a href="Travel-New/index.html" class="portal-card card-travel" id="portal-travel" aria-label="Enter Saveron Nature and Travel Division">
+              <div class="card-header">
+                <span class="card-badge">🌿 NATURE & LUXURY TRAVEL</span>
+                <div class="card-icon-wrap" aria-hidden="true">✈</div>
+              </div>
+
+              <div class="card-body">
+                <h2 class="card-title">Saveron Nature & Travel</h2>
+                <p class="card-desc">
+                  Curated rainforest retreats, cascading waterfall escapes, and bespoke corporate travel management with comprehensive ground coordination across India.
+                </p>
+
+                <ul class="card-features" aria-label="Travel Division Capabilities">
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>Curated Waterfall Sanctuaries & Tea Valleys</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>Executive Offsites & Corporate Flight Blocks</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>Centralized Monthly Invoicing & GST Compliance</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>24×7 Dedicated Ground Escort & Concierge</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-footer">
+                <div class="portal-btn">
+                  <span>Explore Travel Division</span>
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Portal 2: Enterprise IT Solutions Division -->
+            <a href="IT-New/index.html" class="portal-card card-tech" id="portal-tech" aria-label="Enter Saveron IT Solutions Division">
+              <div class="card-header">
+                <span class="card-badge">◈ DIGITAL & IT ENGINEERING</span>
+                <div class="card-icon-wrap" aria-hidden="true">⚡</div>
+              </div>
+
+              <div class="card-body">
+                <h2 class="card-title">Saveron IT Solutions</h2>
+                <p class="card-desc">
+                  Full-stack digital engineering, resilient cloud infrastructure, bespoke enterprise web & mobile software, and AI automation tailored for modern industry.
+                </p>
+
+                <ul class="card-features" aria-label="IT Solutions Capabilities">
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>Full-Stack Web, Mobile & Cloud Applications</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>Scalable Microservices, APIs & DevOps Pipelines</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>AI Integrations & Workflow Automation</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="feature-dot" aria-hidden="true"></span>
+                    <span>High-SLA Enterprise Maintenance & Tech Consulting</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-footer">
+                <div class="portal-btn">
+                  <span>Explore IT Solutions</span>
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </div>
+              </div>
+            </a>
+
+          </div>
+
+          <!-- Enterprise Credentials Bar -->
+          <div class="trust-bar" aria-label="Corporate Highlights">
+            <div class="trust-item">
+              <h4>2 SPECIALIZED WINGS</h4>
+              <p>Tailored expertise under one unified entity</p>
+            </div>
+            <div class="trust-item">
+              <h4>ENTERPRISE COMPLIANCE</h4>
+              <p>Corporate GST billing & SLA accountability</p>
+            </div>
+            <div class="trust-item">
+              <h4>PAN-INDIA PRESENCE</h4>
+              <p>From serene retreats to leading tech corridors</p>
+            </div>
+            <div class="trust-item">
+              <h4>24×7 SUPPORT CARE</h4>
+              <p>Dedicated account managers for every client</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Corporate Footer -->
+    <footer class="gateway-footer">
+      <div class="container footer-inner">
+        <div>
+          &copy; <span id="current-year">2026</span> <strong>SAVERON SOLUTIONS PRIVATE LIMITED</strong>. All Rights Reserved.
+        </div>
+
+        <div class="footer-links">
+          <a href="Travel-New/index.html">Travel Division</a>
+          <span>&bull;</span>
+          <a href="IT-New/index.html">IT Solutions</a>
+          <span>&bull;</span>
+          <a href="IT-New/contact.html">Enterprise Desk</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Dual Particle Ambient Script -->
+  <script>
+    (function () {
+      'use strict';
+      
+      // Dynamic Year
+      const yearEl = document.getElementById('current-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Ambient Dual-Particle Canvas
+      const canvas = document.getElementById('gateway-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const count = Math.min(Math.floor(window.innerWidth / 20), 55);
+
+      for (let i = 0; i < count; i++) {
+        const isTravel = Math.random() < 0.5;
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45 - 0.15,
+          isTravel: isTravel,
+          alpha: Math.random() * 0.5 + 0.2
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
+
+          // Color based on horizontal position or division affinity
+          const isLeftSide = p.x < width * 0.5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          
+          if (isLeftSide || p.isTravel) {
+            // Emerald Glow (Travel)
+            ctx.fillStyle = `rgba(16, 185, 129, ${p.alpha * 0.75})`;
+          } else {
+            // Cyan Glow (Tech)
+            ctx.fillStyle = `rgba(0, 240, 255, ${p.alpha * 0.75})`;
+          }
+          ctx.fill();
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+  </script>
+
 </body>
 
 </html>

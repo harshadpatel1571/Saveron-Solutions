@@ -66,20 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-Vx0KtXJo4nXjk738RaxeOmlm-4YsuD0TlebPyFbVfyraFtxo4NiwWLP3Dm6bMCsKJg/exec"; 
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGvvzMZXMe-A4hBtC7nbV8xbisVOYaQvR--wc70bNc2fH37Te5rXHGR9t773yMlh1p/exec"; 
             
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
+            await fetch(GOOGLE_SCRIPT_URL, {
                 method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(payload)
             });
-            const result = await response.json();
             
-            if(result.success) {
-                status.textContent = 'Thank you. Your request has been sent successfully.';
-                form.reset();
-            } else {
-                status.textContent = 'Something went wrong. Please try again later.';
-            }
+            status.textContent = 'Thank you. Your request has been sent successfully.';
+            form.reset();
         } catch(e) {
             status.textContent = 'Thank you. Your request has been sent successfully.'; 
             form.reset();
@@ -106,7 +103,7 @@ function generateAdminEmail(data) {
     <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 650px; margin: 0 auto; background: #f8fafc; padding: 20px;">
         <div style="background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);">
             <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 40px 30px; text-align: center; border-bottom: 4px solid #3b82f6;">
-                <img src="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png" alt="Saveron Solutions" style="max-height: 45px; margin-bottom: 20px; display: inline-block; background-color: #ffffff; padding: 10px 20px; border-radius: 8px;">
+                <img src="https://www.saveronsolutions.com/IT-New/assets/images/saveron-logo-white.png" alt="Saveron Solutions" style="max-height: 48px; width: auto; margin-bottom: 20px; display: inline-block;">
                 <h2 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.5px;">New Form Submission</h2>
                 <p style="color: #94a3b8; margin: 10px 0 0 0; font-size: 15px;">A new inquiry requires your attention</p>
             </div>
@@ -132,7 +129,7 @@ function generateCustomerEmail(name) {
         <div style="background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);">
             
             <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 50px 30px; text-align: center; border-bottom: 4px solid #3b82f6;">
-                <img src="https://www.saveronsolutions.com/travel/assets/images/saveron-logo.png" alt="Saveron Solutions" style="max-height: 45px; margin-bottom: 25px; display: inline-block; background-color: #ffffff; padding: 10px 20px; border-radius: 8px;">
+                <img src="https://www.saveronsolutions.com/IT-New/assets/images/saveron-logo-white.png" alt="Saveron Solutions" style="max-height: 48px; width: auto; margin-bottom: 25px; display: inline-block;">
                 <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.5px;">Thank You!</h1>
                 <p style="color: #94a3b8; font-size: 16px; margin: 12px 0 0 0;">Your request was received successfully.</p>
             </div>
