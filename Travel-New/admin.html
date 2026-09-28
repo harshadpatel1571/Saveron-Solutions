@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SAVERON Travel</title>
+    <script>
+        // Session Guard: without login, this page cannot be opened
+        if (sessionStorage.getItem('saveron_admin_logged_in') !== 'true') {
+            window.location.replace('adminlogin.html');
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/travel-theme.css">
+    <script src="assets/data/packages-data.js"></script>
+    <script src="assets/data/admin-data.js"></script>
+    <script src="assets/js/packages-loader.js"></script>
+    <style>
+        :root {
+            --admin-bg: #f8fafc;
+            --admin-card-bg: #ffffff;
+            --admin-border: #e2e8f0;
+            --admin-text-main: #0f172a;
+            --admin-text-sub: #64748b;
+        }
+
+        body {
+            background-color: var(--admin-bg);
+            color: var(--admin-text-main);
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Bar */
+        .admin-navbar {
+            background: var(--forest-dark);
+            color: #ffffff;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--emerald-primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+            .admin-nav-brand img {
+                height: 38px;
+                width: auto;
+            }
+
+        .admin-nav-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+        }
+
+            .admin-nav-title span {
+                display: block;
+                font-family: var(--font-sans);
+                font-size: 0.68rem;
+                color: #6ee7b7;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+
+        .admin-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .admin-user-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .admin-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 15px;
+            border-radius: var(--radius-md);
+            font-size: 0.84rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-view-site {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+            .btn-view-site:hover {
+                background: rgba(255, 255, 255, 0.25);
+            }
+
+        .btn-logout {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+            .btn-logout:hover {
+                background: #b91c1c;
+            }
+
+        /* Container */
+        .admin-container {
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+            flex: 1;
+            box-sizing: border-box;
+        }
+
+        /* Tabs Header */
+        .admin-tabs-nav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid var(--admin-border);
+            margin-bottom: 28px;
+            background: #ffffff;
+            padding: 10px 14px 0;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .admin-tab-btn {
+            padding: 12px 22px;
+            border: none;
+            background: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            color: var(--admin-text-sub);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+
+            .admin-tab-btn:hover {
+                color: var(--emerald-primary);
+                background: var(--mint-tint);
+            }
+
+            .admin-tab-btn.active {
+                color: var(--emerald-primary);
+                border-bottom-color: var(--emerald-primary);
+                background: var(--mint-tint);
+                font-weight: 700;
+            }
+
+        .tab-badge {
+            background: #e2e8f0;
+            color: var(--admin-text-main);
+            font-size: 0.72rem;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .admin-tab-btn.active .tab-badge {
+            background: var(--emerald-primary);
+            color: #ffffff;
+        }
+
+        /* Tab Panes */
+        .admin-tab-pane {
+            display: none;
+        }
+
+            .admin-tab-pane.active {
+                display: block;
+                animation: fadeIn 0.25s ease;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Content Cards */
+        .admin-card {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--admin-border);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+
+        .admin-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .admin-header-info h2 {
+            font-family: var(--font-serif);
+            font-size: 1.85rem;
+            color: var(--forest-dark);
+            margin: 0 0 4px 0;
+        }
+
+        .admin-header-info p {
+            margin: 0;
+            color: var(--admin-text-sub);
+            font-size: 0.9rem;
+        }
+
+        .admin-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Search & Filter inputs */
+        .admin-search-input,
+        .admin-select-input {
+            height: 40px;
+            padding: 6px 14px;
+            border: 1.5px solid var(--admin-border);
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            font-family: var(--font-sans);
+            color: var(--admin-text-main);
+            background: #ffffff;
+        }
+
+            .admin-search-input:focus,
+            .admin-select-input:focus {
+                outline: none;
+                border-color: var(--emerald-primary);
+                box-shadow: 0 0 0 3px rgba(14, 111, 77, 0.1);
+            }
+
+        .admin-search-input {
+            min-width: 240px;
+        }
+
+        /* Primary Action Buttons */
+        .btn-action-primary {
+            height: 40px;
+            padding: 0 18px;
+            background: var(--emerald-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .btn-action-primary:hover {
+                background: var(--emerald-rich);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(14, 111, 77, 0.2);
+            }
+
+        /* Tables */
+        .admin-table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--admin-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+            .admin-table th {
+                background: #f8fafc;
+                padding: 14px 16px;
+                font-weight: 700;
+                color: var(--admin-text-sub);
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                border-bottom: 1.5px solid var(--admin-border);
+            }
+
+            .admin-table td {
+                padding: 14px 16px;
+                border-bottom: 1px solid var(--admin-border);
+                vertical-align: middle;
+            }
+
+            .admin-table tbody tr:hover {
+                background-color: #fbfcfe;
+            }
+
+            .admin-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+        /* Table elements */
+        .table-thumb {
+            width: 62px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-title {
+            font-weight: 700;
+            color: var(--forest-dark);
+            margin-bottom: 2px;
+            font-size: 0.95rem;
+        }
+
+        .table-sub {
+            font-size: 0.78rem;
+            color: var(--admin-text-sub);
+        }
+
+        .badge-chip {
+            display: inline-block;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-category {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+
+        .badge-featured {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .table-price {
+            font-weight: 700;
+            color: var(--emerald-primary);
+            font-size: 0.92rem;
+        }
+
+        /* Action Buttons in table */
+        .row-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--admin-border);
+            background: #ffffff;
+            color: var(--admin-text-sub);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+            .btn-icon:hover {
+                background: #f1f5f9;
+                color: var(--forest-dark);
+            }
+
+            .btn-icon.edit:hover {
+                background: #e0f2fe;
+                color: #0284c7;
+                border-color: #bae6fd;
+            }
+
+            .btn-icon.delete:hover {
+                background: #fee2e2;
+                color: #dc2626;
+                border-color: #fecaca;
+            }
+
+        /* Modals */
+        body.modal-open {
+            overflow: hidden !important;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 32, 23, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 30px 16px;
+            box-sizing: border-box;
+        }
+
+            .modal-backdrop.show {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                animation: fadeIn 0.2s ease;
+            }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            max-width: 740px;
+            width: 100%;
+            margin: 20px auto;
+            max-height: none;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--admin-border);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px 28px;
+            border-bottom: 1.5px solid var(--admin-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .modal-title {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            color: var(--forest-dark);
+            margin: 0;
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+            .modal-close-btn:hover {
+                color: var(--forest-dark);
+            }
+
+        .modal-body {
+            padding: 24px 28px;
+            overflow-y: visible;
+            flex: 1;
+        }
+
+        .modal-footer {
+            padding: 16px 28px;
+            border-top: 1.5px solid var(--admin-border);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #f8fafc;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+
+        /* File upload & preview components */
+        .file-upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+            transition: all 0.2s;
+        }
+
+            .file-upload-box:hover {
+                border-color: var(--emerald-primary);
+                background: #f0fdf4;
+            }
+
+        .file-upload-btn-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: var(--emerald-primary);
+            color: #ffffff;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+            .file-upload-btn-label:hover {
+                background: var(--emerald-rich);
+            }
+
+        .file-upload-input {
+            display: none;
+        }
+
+        .file-upload-info {
+            font-size: 0.78rem;
+            color: var(--admin-text-sub);
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-preview-thumb {
+            width: 52px;
+            height: 42px;
+            border-radius: 6px;
+            border: 1px solid var(--admin-border);
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+            .file-preview-thumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .btn-file-download {
+            padding: 4px 10px;
+            background: #ffffff;
+            border: 1px solid var(--admin-border);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            color: var(--forest-dark);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+            .btn-file-download:hover {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+            }
+
+        /* Modal Form Elements */
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--forest-dark);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 9px 13px;
+            border: 1.5px solid var(--admin-border);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-family: var(--font-sans);
+            color: var(--admin-text-main);
+            background: #ffffff;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+            .form-input:focus,
+            .form-textarea:focus,
+            .form-select:focus {
+                outline: none;
+                border-color: var(--emerald-primary);
+                box-shadow: 0 0 0 3px rgba(14, 111, 77, 0.12);
+            }
+
+        .form-hint {
+            font-size: 0.74rem;
+            color: var(--admin-text-sub);
+            margin-top: 4px;
+        }
+
+        /* Settings section styles */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        .settings-card {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--admin-border);
+            padding: 26px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        }
+
+        .settings-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--admin-border);
+        }
+
+        .settings-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--mint-tint);
+            color: var(--emerald-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .settings-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: var(--forest-dark);
+            margin: 0;
+        }
+
+        .settings-card-subtitle {
+            font-size: 0.8rem;
+            color: var(--admin-text-sub);
+            margin: 2px 0 0;
+        }
+
+        /* Toast Notification */
+        .admin-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--forest-dark);
+            color: #ffffff;
+            padding: 14px 22px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.22, 0.68, 0, 1.2);
+            border-left: 5px solid var(--emerald-primary);
+        }
+
+            .admin-toast.show {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .admin-toast.success {
+                border-left-color: #10b981;
+            }
+
+            .admin-toast.error {
+                border-left-color: #ef4444;
+            }
+
+        /* Category Card Visual in tab */
+        .category-icon-box {
+            font-size: 1.5rem;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Navbar -->
+    <header class="admin-navbar">
+        <a href="admin.html" class="admin-nav-brand">
+            <img src="assets/images/saveron-logo.png" alt="SAVERON" style="filter: brightness(0) invert(1);">
+            <div class="admin-nav-title">
+                SAVERON
+                <span>ADMIN CONSOLE</span>
+            </div>
+        </a>
+
+        <div class="admin-nav-actions">
+            <div class="admin-user-pill">
+                <i class="fa-solid fa-user-shield" style="color:#6ee7b7;"></i>
+                <span>User: <strong id="nav-user-name">admin</strong></span>
+            </div>
+            <a href="index.html" target="_blank" class="admin-nav-btn btn-view-site" title="Open live website in a new tab">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>View Live Site</span>
+            </a>
+            <button class="admin-nav-btn btn-logout" id="btn-logout" title="Sign out from session">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="admin-container">
+
+        <!-- 3 Tabs Navigation -->
+        <nav class="admin-tabs-nav" role="tablist">
+            <button class="admin-tab-btn active" data-tab="tab-packages" role="tab" aria-selected="true">
+                <i class="fa-solid fa-mountain-sun"></i>
+                <span>Packages</span>
+                <span class="tab-badge" id="badge-packages-count">0</span>
+            </button>
+            <button class="admin-tab-btn" data-tab="tab-categories" role="tab" aria-selected="false">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Categories</span>
+                <span class="tab-badge" id="badge-categories-count">0</span>
+            </button>
+            <button class="admin-tab-btn" data-tab="tab-settings" role="tab" aria-selected="false">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- TAB 1: PACKAGES                           -->
+        <!-- ========================================== -->
+        <div class="admin-tab-pane active" id="tab-packages">
+            <div class="admin-card">
+                <div class="admin-header-row">
+                    <div class="admin-header-info">
+                        <h2>Travel Packages Catalog</h2>
+                        <p>Manage destinations, pricing, itineraries, and inclusions across the entire site.</p>
+                    </div>
+                    <div class="admin-controls-row">
+                        <input type="text" id="pkg-filter-search" class="admin-search-input"
+                               placeholder="Search by name, route, dest...">
+                        <select id="pkg-filter-category" class="admin-select-input">
+                            <option value="all">All Categories</option>
+                        </select>
+                        <button class="btn-action-primary" id="btn-add-package">
+                            <i class="fa-solid fa-plus"></i> Add New Package
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="packages-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">Image</th>
+                                <th>Package Name</th>
+                                <th>Category</th>
+                                <th>Duration</th>
+                                <th>Price</th>
+                                <th>Featured</th>
+                                <th style="width: 110px; text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="packages-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align:center; padding: 30px;">Loading packages...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: CATEGORIES                         -->
+        <!-- ========================================== -->
+        <div class="admin-tab-pane" id="tab-categories">
+            <div class="admin-card">
+                <div class="admin-header-row">
+                    <div class="admin-header-info">
+                        <h2>Experience Categories</h2>
+                        <p>Define travel categories shown in the category-first view on the Home and Packages pages.</p>
+                    </div>
+                    <div class="admin-controls-row">
+                        <button class="btn-action-primary" id="btn-add-category">
+                            <i class="fa-solid fa-plus"></i> Add New Category
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="admin-table" id="categories-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 55px;">Icon</th>
+                                <th style="width: 80px;">Cover Image</th>
+                                <th>Category Name</th>
+                                <th>Category ID (Slug)</th>
+                                <th>Description</th>
+                                <th>Packages Linked</th>
+                                <th style="width: 130px; text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categories-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align:center; padding: 30px;">Loading categories...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: SETTINGS                           -->
+        <!-- ========================================== -->
+        <div class="admin-tab-pane" id="tab-settings">
+            <div class="settings-grid">
+
+                <!-- Account Credentials Card -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h3 class="settings-card-title">Security &amp; Credentials</h3>
+                            <p class="settings-card-subtitle">Change administrative login username and password</p>
+                        </div>
+                    </div>
+
+                    <form id="form-update-creds">
+                        <div class="form-group">
+                            <label class="form-label" for="setting-current-user">Current Username</label>
+                            <input type="text" id="setting-current-user" class="form-input" readonly
+                                   style="background:#f1f5f9; cursor:not-allowed;">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="setting-current-pass">Current Password *</label>
+                            <input type="password" id="setting-current-pass" class="form-input" placeholder="Verify current password"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="setting-new-user">New Username *</label>
+                            <input type="text" id="setting-new-user" class="form-input" placeholder="Enter new username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="setting-new-pass">New Password *</label>
+                            <input type="password" id="setting-new-pass" class="form-input"
+                                   placeholder="Enter new password (min 6 chars)" minlength="6" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="setting-confirm-pass">Confirm New Password *</label>
+                            <input type="password" id="setting-confirm-pass" class="form-input" placeholder="Re-enter new password"
+                                   minlength="6" required>
+                        </div>
+
+                        <button type="submit" class="btn-action-primary"
+                                style="width:100%; justify-content:center; height:44px; margin-top:8px;">
+                            <i class="fa-solid fa-floppy-disk"></i> Update Credentials
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Data Sync & Export Card -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div class="settings-card-icon"><i class="fa-solid fa-database"></i></div>
+                        <div>
+                            <h3 class="settings-card-title">Data Storage &amp; Export</h3>
+                            <p class="settings-card-subtitle">Sync your live edits back to repository files</p>
+                        </div>
+                    </div>
+
+                    <p style="font-size:0.86rem; color:var(--admin-text-sub); line-height:1.6; margin-bottom:18px;">
+                        Changes made in this console are saved directly into your browser's persistent storage and are instantly
+                        visible across all website pages.
+                        You can download updated configuration files below to persist them into your project repository.
+                    </p>
+
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <button class="btn-action-primary" id="btn-export-json" style="background:var(--forest-dark);">
+                            <i class="fa-solid fa-file-code"></i> Download Updated packages.json
+                        </button>
+                        <button class="btn-action-primary" id="btn-export-js" style="background:#0284c7;">
+                            <i class="fa-brands fa-js"></i> Download Updated packages-data.js
+                        </button>
+                        <button class="btn-action-primary" id="btn-export-admin-json" style="background:#047857;">
+                            <i class="fa-solid fa-key"></i> Download Updated admin.json
+                        </button>
+                        <hr style="border:none; border-top:1px solid var(--admin-border); margin:12px 0;">
+                        <button class="btn-action-primary" id="btn-reset-data" style="background:#dc2626;">
+                            <i class="fa-solid fa-rotate-left"></i> Reset to Factory Default Data
+                        </button>
+                        <span style="font-size:0.75rem; color:#dc2626;">
+                            Note: Reset will discard custom edits made in this
+                            browser.
+                        </span>
+                    </div>
+
+                    <div style="margin-top:24px; padding:14px; background:#f8fafc; border-radius:var(--radius-md); font-size:0.8rem; color:#64748b;">
+                        <div><strong>Active Session:</strong> Logged in via <code>sessionStorage</code></div>
+                        <div>
+                            <strong>Access Route:</strong> Direct URL only (<code>adminlogin.html</code> &rarr;
+                            <code>admin.html</code>)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- MODAL: ADD / EDIT PACKAGE                 -->
+    <!-- ========================================== -->
+    <div class="modal-backdrop" id="modal-package">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-package-title">Add Travel Package</h3>
+                <button class="modal-close-btn" id="btn-close-pkg-modal">&times;</button>
+            </div>
+            <form id="form-package">
+                <div class="modal-body">
+                    <input type="hidden" id="pkg-is-edit" value="false">
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-name">Package Name *</label>
+                            <input type="text" id="pkg-name" class="form-input" placeholder="e.g. Kerala Backwaters & Munnar Hills"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-id">Package ID (Slug) *</label>
+                            <input type="text" id="pkg-id" class="form-input" placeholder="e.g. kerala" required>
+                            <div class="form-hint">Used in URLs like ?dest=kerala</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkg-tagline">Tagline</label>
+                        <input type="text" id="pkg-tagline" class="form-input"
+                               placeholder="e.g. God's Own Country — Waterfalls, Tea & Houseboats">
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-category">Category *</label>
+                            <select id="pkg-category" class="form-select" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-dest">Destination Key *</label>
+                            <input type="text" id="pkg-dest" class="form-input" placeholder="e.g. kerala" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-duration">Duration Text *</label>
+                            <input type="text" id="pkg-duration" class="form-input" placeholder="e.g. 7 Days / 6 Nights" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-duration-code">Duration Filter Code</label>
+                            <select id="pkg-duration-code" class="form-select">
+                                <option value="short">Short (1-4 Days)</option>
+                                <option value="medium" selected>Medium (5-8 Days)</option>
+                                <option value="long">Long (9+ Days)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-price-amount">Price Amount (INR ₹) *</label>
+                            <input type="number" id="pkg-price-amount" class="form-input" placeholder="42000" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-tag">Tag Badge Text</label>
+                            <input type="text" id="pkg-tag" class="form-input" placeholder="e.g. WATERFALLS & BACKWATERS">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkg-image">Banner / Card Image *</label>
+                        <input type="text" id="pkg-image" class="form-input" placeholder="assets/images/banners/... or https://..." required>
+                        <div class="file-upload-box">
+                            <label class="file-upload-btn-label" for="pkg-image-file">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Banner File
+                            </label>
+                            <input type="file" id="pkg-image-file" class="file-upload-input" accept="image/*">
+                            <div class="file-upload-info" id="pkg-image-file-info">Upload custom banner image. Saves to <code>assets/images/banners/</code></div>
+                            <a id="pkg-image-download-btn" class="btn-file-download" style="display:none;" title="Save file to assets/images/banners/"><i class="fa-solid fa-download"></i> Save to banners/</a>
+                        </div>
+                        <div id="pkg-image-preview-wrap" style="margin-top:8px; display:none; align-items:center; gap:12px;">
+                            <img id="pkg-image-preview" src="" alt="Banner Preview" style="width:130px; height:74px; object-fit:cover; border-radius:6px; border:1px solid #cbd5e1;">
+                            <span style="font-size:0.75rem; color:#64748b;">Banner live preview</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkg-description">Description *</label>
+                        <textarea id="pkg-description" class="form-textarea" rows="2" placeholder="Brief summary of the journey..."
+                                  required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkg-route">Route Stops (Comma separated)</label>
+                        <input type="text" id="pkg-route" class="form-input"
+                               placeholder="e.g. Kochi, Munnar, Thekkady, Alleppey, Kovalam">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pkg-highlights">Highlights (One per line)</label>
+                        <textarea id="pkg-highlights" class="form-textarea" rows="3"
+                                  placeholder="Cheeyappara & Athirappilly Waterfalls&#10;Munnar Tea Plantation Tour&#10;Private Luxury Houseboat"></textarea>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-inclusions">Inclusions (One per line)</label>
+                            <textarea id="pkg-inclusions" class="form-textarea" rows="3"
+                                      placeholder="Accommodation (5-star/boutique)&#10;Daily breakfast & dinner&#10;All private AC transfers"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pkg-exclusions">Exclusions (One per line)</label>
+                            <textarea id="pkg-exclusions" class="form-textarea" rows="3"
+                                      placeholder="Airfare / train fare&#10;Personal expenses & tips&#10;Travel insurance"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                            <input type="checkbox" id="pkg-featured" style="width:18px; height:18px;">
+                            <span style="font-weight:600; font-size:0.9rem;">Show on Home Page Featured Sanctuaries</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-action-primary" id="btn-cancel-pkg"
+                            style="background:#e2e8f0; color:var(--admin-text-main);">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn-action-primary"><i class="fa-solid fa-check"></i> Save Package</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: ADD / EDIT CATEGORY                -->
+    <!-- ========================================== -->
+    <div class="modal-backdrop" id="modal-category">
+        <div class="modal-card" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-category-title">Add Category</h3>
+                <button class="modal-close-btn" id="btn-close-cat-modal">&times;</button>
+            </div>
+            <form id="form-category">
+                <div class="modal-body">
+                    <input type="hidden" id="cat-is-edit" value="false">
+
+                    <div class="form-group">
+                        <label class="form-label" for="cat-id">Category ID (Slug) *</label>
+                        <input type="text" id="cat-id" class="form-input" placeholder="e.g. nature, couple, family, adventure"
+                               required>
+                        <div class="form-hint">Unique lowercase alphanumeric slug.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cat-label">Category Name (Label) *</label>
+                        <input type="text" id="cat-label" class="form-input" placeholder="e.g. Waterfall & Nature" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cat-icon">Category Icon (Emoji or Image) *</label>
+                        <input type="text" id="cat-icon" class="form-input" placeholder="e.g. 🌊 or assets/images/icons/nature.png" required>
+                        <div class="file-upload-box">
+                            <label class="file-upload-btn-label" for="cat-icon-file">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Icon File
+                            </label>
+                            <input type="file" id="cat-icon-file" class="file-upload-input" accept="image/*">
+                            <div class="file-upload-info" id="cat-icon-file-info">Upload custom icon (auto-compressed &amp; saved directly)</div>
+                            <a id="cat-icon-download-btn" class="btn-file-download" style="display:none;" title="Save file to assets/images/icons/"><i class="fa-solid fa-download"></i> Save to icons/</a>
+                        </div>
+                        <div id="cat-icon-preview-wrap" style="margin-top:8px; display:flex; align-items:center; gap:10px;">
+                            <div id="cat-icon-preview" style="font-size:1.6rem; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:#f1f5f9; border-radius:6px; border:1px solid #cbd5e1; overflow:hidden;">🌿</div>
+                            <span style="font-size:0.75rem; color:#64748b;">Live icon preview</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cat-cover">Category Cover Image</label>
+                        <input type="text" id="cat-cover" class="form-input" placeholder="e.g. assets/images/coverimages/kerala.jpg or https://...">
+                        <div class="file-upload-box">
+                            <label class="file-upload-btn-label" for="cat-cover-file">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Cover Image
+                            </label>
+                            <input type="file" id="cat-cover-file" class="file-upload-input" accept="image/*">
+                            <div class="file-upload-info" id="cat-cover-file-info">Upload card cover image (auto-compressed &amp; saved directly)</div>
+                            <a id="cat-cover-download-btn" class="btn-file-download" style="display:none;" title="Save file to assets/images/coverimages/"><i class="fa-solid fa-download"></i> Save to coverimages/</a>
+                        </div>
+                        <div id="cat-cover-preview-wrap" style="margin-top:8px; display:none; align-items:center; gap:12px;">
+                            <img id="cat-cover-preview" src="" alt="Cover Preview" style="width:130px; height:80px; object-fit:cover; border-radius:6px; border:1px solid #cbd5e1;">
+                            <span style="font-size:0.75rem; color:#64748b;">Category card cover preview</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cat-description">Description *</label>
+                        <textarea id="cat-description" class="form-textarea" rows="3" placeholder="Brief description of this travel style..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-action-primary" id="btn-cancel-cat" style="background:#e2e8f0; color:var(--admin-text-main);">Cancel</button>
+                    <button type="submit" class="btn-action-primary"><i class="fa-solid fa-check"></i> Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: VIEW CATEGORY ICON & COVER         -->
+    <!-- ========================================== -->
+    <div class="modal-backdrop" id="modal-view-category">
+        <div class="modal-card" style="max-width: 540px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="view-cat-modal-title">Category Preview</h3>
+                <button class="modal-close-btn" id="btn-close-view-cat-modal">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <div id="view-cat-icon-display" style="margin: 0 auto 12px; width:64px; height:64px; border-radius:12px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; font-size:2.4rem; border:1px solid #e2e8f0; overflow:hidden;"></div>
+                <h2 id="view-cat-name-display" style="font-family:var(--font-serif); font-size:1.8rem; margin:0 0 4px 0; color:var(--forest-dark);"></h2>
+                <div id="view-cat-id-display" style="font-size:0.82rem; color:var(--admin-text-sub); margin-bottom:16px;"></div>
+                <div id="view-cat-cover-wrap" style="border-radius:12px; overflow:hidden; margin-bottom:16px; border:1px solid var(--admin-border); height:220px; background:#062017; display:flex; align-items:center; justify-content:center;">
+                    <img id="view-cat-cover-img" src="" alt="Cover Image" style="width:100%; height:100%; object-fit:cover; display:block;">
+                </div>
+                <p id="view-cat-desc-display" style="font-size:0.92rem; color:var(--admin-text-main); line-height:1.6; margin:0;"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-action-primary" id="btn-close-view-cat-btn">Close Preview</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Element -->
+    <div class="admin-toast" id="admin-toast" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+        <span id="toast-msg">Operation completed.</span>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- APPLICATION LOGIC                         -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const SP = window.SaveronPackages;
+            if (!SP) {
+                alert('Package loader module not found.');
+                return;
+            }
+
+            // 1. Session Setup
+            const activeUser = sessionStorage.getItem('saveron_admin_user') || 'admin';
+            document.getElementById('nav-user-name').textContent = activeUser;
+            document.getElementById('setting-current-user').value = activeUser;
+
+            const CREDS_KEY = 'saveron_admin_creds';
+            if (!localStorage.getItem(CREDS_KEY) && typeof window !== 'undefined' && window.SAVERON_ADMIN_DATA) {
+                try {
+                    localStorage.setItem(CREDS_KEY, JSON.stringify(window.SAVERON_ADMIN_DATA));
+                } catch (e) { }
+            }
+
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                sessionStorage.removeItem('saveron_admin_logged_in');
+                sessionStorage.removeItem('saveron_admin_user');
+                sessionStorage.removeItem('saveron_admin_login_time');
+                window.location.replace('adminlogin.html');
+            });
+
+            // 2. Load dataset
+            let dataset = await SP.loadData();
+
+            // 3. Tab Switching
+            const tabButtons = document.querySelectorAll('.admin-tab-btn');
+            const tabPanes = document.querySelectorAll('.admin-tab-pane');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-tab');
+                    tabButtons.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-selected', 'false');
+                    });
+                    tabPanes.forEach(p => p.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
+                    const activePane = document.getElementById(target);
+                    if (activePane) activePane.classList.add('active');
+                });
+            });
+
+            // 4. Toast helper
+            const toast = document.getElementById('admin-toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+            let toastTimeout = null;
+
+            function showToast(message, type = 'success') {
+                clearTimeout(toastTimeout);
+                toastMsg.textContent = message;
+                toast.className = `admin-toast show ${type}`;
+                toastIcon.className = type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-triangle-exclamation';
+                toastTimeout = setTimeout(() => {
+                    toast.className = 'admin-toast';
+                }, 3200);
+            }
+
+            // 5. Render Functions
+            function updateCounts() {
+                document.getElementById('badge-packages-count').textContent = dataset.packages.length;
+                document.getElementById('badge-categories-count').textContent = dataset.categories.length;
+            }
+
+            function populateCategoryDropdowns() {
+                const filterSelect = document.getElementById('pkg-filter-category');
+                const formSelect = document.getElementById('pkg-category');
+
+                filterSelect.innerHTML = '<option value="all">All Categories</option>';
+                formSelect.innerHTML = '';
+
+                dataset.categories.forEach(cat => {
+                    const isImg = cat.icon && (cat.icon.startsWith('data:') || cat.icon.startsWith('http') || cat.icon.startsWith('assets/'));
+                    const iconTxt = isImg ? '🌿 ' : (cat.icon ? `${cat.icon} ` : '');
+
+                    const optFilter = document.createElement('option');
+                    optFilter.value = cat.id;
+                    optFilter.textContent = `${iconTxt}${cat.label}`;
+                    filterSelect.appendChild(optFilter);
+
+                    const optForm = document.createElement('option');
+                    optForm.value = cat.id;
+                    optForm.textContent = `${iconTxt}${cat.label}`;
+                    formSelect.appendChild(optForm);
+                });
+            }
+
+            function renderPackagesTable() {
+                const tbody = document.getElementById('packages-table-body');
+                const query = document.getElementById('pkg-filter-search').value.toLowerCase().trim();
+                const catFilter = document.getElementById('pkg-filter-category').value;
+
+                const filtered = dataset.packages.filter(p => {
+                    const matchesQuery = !query ||
+                        p.name.toLowerCase().includes(query) ||
+                        p.dest.toLowerCase().includes(query) ||
+                        (p.tagline && p.tagline.toLowerCase().includes(query)) ||
+                        (p.route && p.route.join(' ').toLowerCase().includes(query));
+                    const matchesCat = catFilter === 'all' || p.category === catFilter;
+                    return matchesQuery && matchesCat;
+                });
+
+                tbody.innerHTML = '';
+                if (filtered.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:36px; color:#94a3b8;">No packages match your criteria.</td></tr>`;
+                    return;
+                }
+
+                filtered.forEach(pkg => {
+                    const cat = dataset.categories.find(c => c.id === pkg.category);
+                    const isImg = cat && cat.icon && (cat.icon.startsWith('data:') || cat.icon.startsWith('http') || cat.icon.startsWith('assets/'));
+                    const catIconHTML = isImg
+                        ? `<img src="${cat.icon}" alt="" style="width:14px; height:14px; object-fit:contain; vertical-align:middle; border-radius:2px; margin-right:4px;">`
+                        : (cat && cat.icon ? `${cat.icon} ` : '');
+                    const catBadge = cat ? `${catIconHTML}${cat.label}` : pkg.category;
+                    const priceStr = pkg.price ? `₹${pkg.price.amount.toLocaleString('en-IN')}` : 'Custom';
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+              <td><img src="${pkg.image}" alt="${pkg.name}" class="table-thumb" onerror="this.src='https://placehold.co/60x45?text=Travel'"></td>
+              <td>
+                <div class="table-title">${pkg.name}</div>
+                <div class="table-sub">${pkg.tagline || pkg.dest}</div>
+              </td>
+              <td><span class="badge-chip badge-category" style="display:inline-flex; align-items:center;">${catBadge}</span></td>
+              <td>
+                <div style="font-weight:600;">${pkg.duration}</div>
+                <div class="table-sub">${pkg.tag || ''}</div>
+              </td>
+              <td>
+                <div class="table-price">${priceStr}</div>
+                <div class="table-sub">${pkg.price ? pkg.price.unit : ''}</div>
+              </td>
+              <td>
+                ${pkg.featured ? '<span class="badge-chip badge-featured">★ Featured</span>' : '<span style="color:#cbd5e1;">—</span>'}
+              </td>
+              <td>
+                <div class="row-actions" style="justify-content: flex-end;">
+                  <a href="packages.html?dest=${pkg.dest}" target="_blank" class="btn-icon" title="Preview Package on Website"><i class="fa-solid fa-eye"></i></a>
+                  <button class="btn-icon edit" data-action="edit-pkg" data-id="${pkg.id}" title="Edit Package"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button class="btn-icon delete" data-action="del-pkg" data-id="${pkg.id}" title="Delete Package"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+              </td>
+            `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            function renderCategoriesTable() {
+                const tbody = document.getElementById('categories-table-body');
+                tbody.innerHTML = '';
+
+                if (dataset.categories.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:36px; color:#94a3b8;">No categories found.</td></tr>`;
+                    return;
+                }
+
+                dataset.categories.forEach(cat => {
+                    const linkedCount = dataset.packages.filter(p => p.category === cat.id).length;
+                    const isImgIcon = cat.icon && (cat.icon.startsWith('data:') || cat.icon.startsWith('http') || cat.icon.startsWith('assets/'));
+                    const iconDisplay = isImgIcon
+                        ? `<img src="${cat.icon}" alt="" style="width:28px; height:28px; object-fit:contain; border-radius:4px;">`
+                        : `<span style="font-size:1.4rem;">${cat.icon || '🌿'}</span>`;
+
+                    const catCover = cat.coverImage || (dataset.packages.find(p => p.category === cat.id)?.image || '');
+                    const coverDisplay = catCover
+                        ? `<img src="${catCover}" alt="${cat.label}" class="table-thumb" style="width:58px; height:42px; object-fit:cover; border-radius:6px;" onerror="this.style.display='none'">`
+                        : `<span style="color:#cbd5e1; font-size:0.75rem;">None</span>`;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+              <td><div class="category-icon-box">${iconDisplay}</div></td>
+              <td>${coverDisplay}</td>
+              <td><div class="table-title">${cat.label}</div></td>
+              <td><code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.8rem;">${cat.id}</code></td>
+              <td style="max-width:280px; font-size:0.85rem; color:var(--admin-text-sub);">${cat.description}</td>
+              <td><span class="badge-chip badge-category">${linkedCount} Package${linkedCount !== 1 ? 's' : ''}</span></td>
+              <td>
+                <div class="row-actions" style="justify-content: flex-end;">
+                  <button class="btn-icon view" data-action="view-cat" data-id="${cat.id}" title="View Icon & Cover Image"><i class="fa-solid fa-eye"></i></button>
+                  <button class="btn-icon edit" data-action="edit-cat" data-id="${cat.id}" title="Edit Category"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button class="btn-icon delete" data-action="del-cat" data-id="${cat.id}" title="Delete Category"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+              </td>
+            `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            function refreshAllViews() {
+                updateCounts();
+                populateCategoryDropdowns();
+                renderPackagesTable();
+                renderCategoriesTable();
+            }
+
+            // 6. Search and Filter Listeners
+            document.getElementById('pkg-filter-search').addEventListener('input', renderPackagesTable);
+            document.getElementById('pkg-filter-category').addEventListener('change', renderPackagesTable);
+
+            // 7. Modals Open / Close Helpers
+            const modalPkg = document.getElementById('modal-package');
+            const modalCat = document.getElementById('modal-category');
+            const modalViewCat = document.getElementById('modal-view-category');
+
+            function openPkgModal(isEdit = false, pkg = null) {
+                document.body.classList.add('modal-open');
+                document.getElementById('pkg-is-edit').value = isEdit ? 'true' : 'false';
+                document.getElementById('modal-package-title').textContent = isEdit ? 'Edit Travel Package' : 'Add New Package';
+                const idInput = document.getElementById('pkg-id');
+                const imgInput = document.getElementById('pkg-image');
+                const imgPrev = document.getElementById('pkg-image-preview');
+                const imgPrevWrap = document.getElementById('pkg-image-preview-wrap');
+                const imgFileInfo = document.getElementById('pkg-image-file-info');
+                const imgDlBtn = document.getElementById('pkg-image-download-btn');
+
+                document.getElementById('pkg-image-file').value = '';
+                imgDlBtn.style.display = 'none';
+
+                if (isEdit && pkg) {
+                    idInput.value = pkg.id;
+                    idInput.readOnly = true;
+                    idInput.style.backgroundColor = '#f1f5f9';
+                    document.getElementById('pkg-name').value = pkg.name || '';
+                    document.getElementById('pkg-tagline').value = pkg.tagline || '';
+                    document.getElementById('pkg-category').value = pkg.category || '';
+                    document.getElementById('pkg-dest').value = pkg.dest || '';
+                    document.getElementById('pkg-duration').value = pkg.duration || '';
+                    document.getElementById('pkg-duration-code').value = pkg.durationCode || 'medium';
+                    document.getElementById('pkg-price-amount').value = pkg.price ? pkg.price.amount : '';
+                    document.getElementById('pkg-tag').value = pkg.tag || '';
+                    imgInput.value = pkg.image || '';
+                    if (pkg.image) {
+                        imgPrev.src = pkg.image;
+                        imgPrevWrap.style.display = 'flex';
+                        imgFileInfo.textContent = `Current: ${pkg.image.slice(0, 45)}...`;
+                    } else {
+                        imgPrevWrap.style.display = 'none';
+                    }
+                    document.getElementById('pkg-description').value = pkg.description || '';
+                    document.getElementById('pkg-route').value = pkg.route ? pkg.route.join(', ') : '';
+                    document.getElementById('pkg-highlights').value = pkg.highlights ? pkg.highlights.join('\n') : '';
+                    document.getElementById('pkg-inclusions').value = pkg.inclusions ? pkg.inclusions.join('\n') : '';
+                    document.getElementById('pkg-exclusions').value = pkg.exclusions ? pkg.exclusions.join('\n') : '';
+                    document.getElementById('pkg-featured').checked = !!pkg.featured;
+                } else {
+                    document.getElementById('form-package').reset();
+                    idInput.readOnly = false;
+                    idInput.style.backgroundColor = '#ffffff';
+                    document.getElementById('pkg-duration-code').value = 'medium';
+                    imgPrevWrap.style.display = 'none';
+                    imgFileInfo.textContent = 'Upload custom banner image. Saves to assets/images/banners/';
+                }
+
+                modalPkg.classList.add('show');
+            }
+
+            function closePkgModal() {
+                modalPkg.classList.remove('show');
+                document.body.classList.remove('modal-open');
+            }
+
+            document.getElementById('btn-add-package').addEventListener('click', () => openPkgModal(false));
+            document.getElementById('btn-close-pkg-modal').addEventListener('click', closePkgModal);
+            document.getElementById('btn-cancel-pkg').addEventListener('click', closePkgModal);
+
+            function openCatModal(isEdit = false, cat = null) {
+                document.body.classList.add('modal-open');
+                document.getElementById('cat-is-edit').value = isEdit ? 'true' : 'false';
+                document.getElementById('modal-category-title').textContent = isEdit ? 'Edit Category' : 'Add New Category';
+                const idInput = document.getElementById('cat-id');
+                const iconInput = document.getElementById('cat-icon');
+                const iconPrev = document.getElementById('cat-icon-preview');
+                const iconFileInfo = document.getElementById('cat-icon-file-info');
+                const iconDlBtn = document.getElementById('cat-icon-download-btn');
+                const coverInput = document.getElementById('cat-cover');
+                const coverPrev = document.getElementById('cat-cover-preview');
+                const coverPrevWrap = document.getElementById('cat-cover-preview-wrap');
+                const coverFileInfo = document.getElementById('cat-cover-file-info');
+                const coverDlBtn = document.getElementById('cat-cover-download-btn');
+
+                document.getElementById('cat-icon-file').value = '';
+                document.getElementById('cat-cover-file').value = '';
+                iconDlBtn.style.display = 'none';
+                coverDlBtn.style.display = 'none';
+
+                if (isEdit && cat) {
+                    idInput.value = cat.id;
+                    idInput.readOnly = true;
+                    idInput.style.backgroundColor = '#f1f5f9';
+                    document.getElementById('cat-label').value = cat.label || '';
+                    iconInput.value = cat.icon || '';
+                    const isImgIcon = cat.icon && (cat.icon.startsWith('data:') || cat.icon.startsWith('http') || cat.icon.startsWith('assets/'));
+                    iconPrev.innerHTML = isImgIcon ? `<img src="${cat.icon}" style="width:100%; height:100%; object-fit:contain;">` : (cat.icon || '🌿');
+                    iconFileInfo.textContent = isImgIcon ? 'Custom icon loaded' : 'Current emoji icon';
+
+                    coverInput.value = cat.coverImage || '';
+                    if (cat.coverImage) {
+                        coverPrev.src = cat.coverImage;
+                        coverPrevWrap.style.display = 'flex';
+                        coverFileInfo.textContent = `Current cover: ${cat.coverImage.slice(0, 45)}...`;
+                    } else {
+                        coverPrevWrap.style.display = 'none';
+                        coverFileInfo.textContent = 'Upload card cover image. Saves to assets/images/coverimages/';
+                    }
+                    document.getElementById('cat-description').value = cat.description || '';
+                } else {
+                    document.getElementById('form-category').reset();
+                    idInput.readOnly = false;
+                    idInput.style.backgroundColor = '#ffffff';
+                    iconPrev.innerHTML = '🌿';
+                    coverPrevWrap.style.display = 'none';
+                    iconFileInfo.textContent = 'Upload custom icon image. Saves to assets/images/icons/';
+                    coverFileInfo.textContent = 'Upload card cover image. Saves to assets/images/coverimages/';
+                }
+
+                modalCat.classList.add('show');
+            }
+
+            function closeCatModal() {
+                modalCat.classList.remove('show');
+                document.body.classList.remove('modal-open');
+            }
+
+            document.getElementById('btn-add-category').addEventListener('click', () => openCatModal(false));
+            document.getElementById('btn-close-cat-modal').addEventListener('click', closeCatModal);
+            document.getElementById('btn-cancel-cat').addEventListener('click', closeCatModal);
+
+            // View Category Modal Handler
+            function openViewCatModal(cat) {
+                document.body.classList.add('modal-open');
+                document.getElementById('view-cat-modal-title').textContent = `Category: ${cat.label}`;
+                document.getElementById('view-cat-name-display').textContent = cat.label;
+                document.getElementById('view-cat-id-display').textContent = `Slug: ${cat.id}`;
+                document.getElementById('view-cat-desc-display').textContent = cat.description;
+
+                const iconDisplay = document.getElementById('view-cat-icon-display');
+                const isImgIcon = cat.icon && (cat.icon.startsWith('data:') || cat.icon.startsWith('http') || cat.icon.startsWith('assets/'));
+                iconDisplay.innerHTML = isImgIcon
+                    ? `<img src="${cat.icon}" alt="${cat.label}" style="width:100%; height:100%; object-fit:contain; border-radius:10px;">`
+                    : cat.icon || '🌿';
+
+                const coverImg = document.getElementById('view-cat-cover-img');
+                const catCover = cat.coverImage || (dataset.packages.find(p => p.category === cat.id)?.image || '');
+                if (catCover) {
+                    coverImg.src = catCover;
+                    coverImg.style.display = 'block';
+                } else {
+                    coverImg.style.display = 'none';
+                }
+
+                modalViewCat.classList.add('show');
+            }
+
+            function closeViewCatModal() {
+                modalViewCat.classList.remove('show');
+                document.body.classList.remove('modal-open');
+            }
+
+            document.getElementById('btn-close-view-cat-modal').addEventListener('click', closeViewCatModal);
+            document.getElementById('btn-close-view-cat-btn').addEventListener('click', closeViewCatModal);
+
+            // Compress image using HTML5 Canvas to keep Data URLs lightweight (<100KB) and prevent localStorage quota issues
+            function compressImageFile(file, maxWidth, maxHeight, quality = 0.8) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            let width = img.width;
+                            let height = img.height;
+                            if (width > maxWidth || height > maxHeight) {
+                                if (width / height > maxWidth / maxHeight) {
+                                    height = Math.round((height * maxWidth) / width);
+                                    width = maxWidth;
+                                } else {
+                                    width = Math.round((width * maxHeight) / height);
+                                    height = maxHeight;
+                                }
+                            }
+                            const canvas = document.createElement('canvas');
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+
+                            const isPng = file.type === 'image/png' && width <= 200;
+                            const dataUrl = canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', quality);
+                            resolve(dataUrl);
+                        };
+                        img.onerror = () => resolve(e.target.result);
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = () => resolve(null);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            // Setup File Upload Handlers (FileReader + auto-compression -> Data URL)
+            function bindFileUpload(fileInputId, textInputId, infoId, prevWrapId, prevImgId, dlBtnId, folderPath, isIconBox = false, maxW = 900, maxH = 600) {
+                const fileInput = document.getElementById(fileInputId);
+                const textInput = document.getElementById(textInputId);
+                const infoEl = document.getElementById(infoId);
+                const prevWrap = prevWrapId ? document.getElementById(prevWrapId) : null;
+                const prevEl = document.getElementById(prevImgId);
+                const dlBtn = document.getElementById(dlBtnId);
+
+                fileInput.addEventListener('change', async (e) => {
+                    const file = e.target.files && e.target.files[0];
+                    if (!file) return;
+
+                    infoEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Optimizing image...`;
+
+                    const dataUrl = await compressImageFile(file, maxW, maxH, isIconBox ? 0.9 : 0.8);
+                    if (!dataUrl) {
+                        infoEl.textContent = 'Could not read image file.';
+                        return;
+                    }
+
+                    textInput.value = dataUrl;
+                    const approxKb = Math.round(dataUrl.length * 0.75 / 1024);
+                    infoEl.innerHTML = `Loaded & optimized: <strong>${file.name}</strong> (~${approxKb} KB)`;
+
+                    if (prevWrap) prevWrap.style.display = 'flex';
+                    if (prevEl) {
+                        if (prevEl.tagName === 'IMG') {
+                            prevEl.src = dataUrl;
+                        } else {
+                            prevEl.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:4px;">`;
+                        }
+                    }
+
+                    if (dlBtn) {
+                        dlBtn.style.display = 'inline-flex';
+                        dlBtn.href = dataUrl;
+                        dlBtn.download = file.name;
+                        dlBtn.title = `Save file to ${folderPath}/${file.name}`;
+                    }
+                });
+
+                textInput.addEventListener('input', () => {
+                    const val = textInput.value.trim();
+                    if (!val) {
+                        if (prevWrap) prevWrap.style.display = 'none';
+                        if (dlBtn) dlBtn.style.display = 'none';
+                        return;
+                    }
+                    const isImg = val.startsWith('data:') || val.startsWith('http') || val.startsWith('assets/');
+                    if (isImg) {
+                        if (prevWrap) prevWrap.style.display = 'flex';
+                        if (prevEl) {
+                            if (prevEl.tagName === 'IMG') {
+                                prevEl.src = val;
+                            } else {
+                                prevEl.innerHTML = `<img src="${val}" style="width:100%; height:100%; object-fit:contain; border-radius:4px;">`;
+                            }
+                        }
+                    } else if (isIconBox && prevEl) {
+                        prevEl.textContent = val;
+                        if (prevWrap) prevWrap.style.display = 'flex';
+                    }
+                });
+            }
+
+            bindFileUpload('pkg-image-file', 'pkg-image', 'pkg-image-file-info', 'pkg-image-preview-wrap', 'pkg-image-preview', 'pkg-image-download-btn', 'assets/images/banners', false, 900, 600);
+            bindFileUpload('cat-icon-file', 'cat-icon', 'cat-icon-file-info', 'cat-icon-preview-wrap', 'cat-icon-preview', 'cat-icon-download-btn', 'assets/images/icons', true, 160, 160);
+            bindFileUpload('cat-cover-file', 'cat-cover', 'cat-cover-file-info', 'cat-cover-preview-wrap', 'cat-cover-preview', 'cat-cover-download-btn', 'assets/images/coverimages', false, 800, 500);
+
+            // 8. Auto slug generation on typing Name
+            document.getElementById('pkg-name').addEventListener('input', (e) => {
+                const isEdit = document.getElementById('pkg-is-edit').value === 'true';
+                if (!isEdit) {
+                    const slug = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                    document.getElementById('pkg-id').value = slug;
+                    document.getElementById('pkg-dest').value = slug;
+                }
+            });
+
+            document.getElementById('cat-label').addEventListener('input', (e) => {
+                const isEdit = document.getElementById('cat-is-edit').value === 'true';
+                if (!isEdit) {
+                    const slug = e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                    document.getElementById('cat-id').value = slug;
+                }
+            });
+
+            // 9. Save Package (Add / Edit)
+            document.getElementById('form-package').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const isEdit = document.getElementById('pkg-is-edit').value === 'true';
+                const id = document.getElementById('pkg-id').value.trim().toLowerCase();
+                const name = document.getElementById('pkg-name').value.trim();
+                const tagline = document.getElementById('pkg-tagline').value.trim();
+                const category = document.getElementById('pkg-category').value;
+                const dest = document.getElementById('pkg-dest').value.trim().toLowerCase() || id;
+                const duration = document.getElementById('pkg-duration').value.trim();
+                const durationCode = document.getElementById('pkg-duration-code').value;
+                const amount = parseFloat(document.getElementById('pkg-price-amount').value) || 0;
+                const tag = document.getElementById('pkg-tag').value.trim() || 'FEATURED ITINERARY';
+                const image = document.getElementById('pkg-image').value.trim();
+                const description = document.getElementById('pkg-description').value.trim();
+                const route = document.getElementById('pkg-route').value.split(',').map(s => s.trim()).filter(Boolean);
+                const highlights = document.getElementById('pkg-highlights').value.split('\n').map(s => s.trim()).filter(Boolean);
+                const inclusions = document.getElementById('pkg-inclusions').value.split('\n').map(s => s.trim()).filter(Boolean);
+                const exclusions = document.getElementById('pkg-exclusions').value.split('\n').map(s => s.trim()).filter(Boolean);
+                const featured = document.getElementById('pkg-featured').checked;
+
+                const price = {
+                    currency: '₹',
+                    amount: amount,
+                    unit: 'per person',
+                    label: `Starting from ₹${amount.toLocaleString('en-IN')} / person`
+                };
+
+                const newPkg = {
+                    id,
+                    name,
+                    tagline,
+                    category,
+                    dest,
+                    image,
+                    imageAlt: name,
+                    tag,
+                    duration,
+                    durationCode,
+                    price,
+                    route,
+                    description,
+                    highlights,
+                    inclusions,
+                    exclusions,
+                    featured
+                };
+
+                if (isEdit) {
+                    const idx = dataset.packages.findIndex(p => p.id === id);
+                    if (idx !== -1) {
+                        dataset.packages[idx] = newPkg;
+                        showToast(`Package "${name}" updated successfully.`);
+                    }
+                } else {
+                    // Check uniqueness
+                    if (dataset.packages.some(p => p.id === id)) {
+                        alert(`Package ID "${id}" already exists. Please choose a unique ID.`);
+                        return;
+                    }
+                    dataset.packages.unshift(newPkg);
+                    showToast(`Package "${name}" added successfully.`);
+                }
+
+                SP.saveData(dataset);
+                closePkgModal();
+                refreshAllViews();
+            });
+
+            // 10. Save Category (Add / Edit)
+            document.getElementById('form-category').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const isEdit = document.getElementById('cat-is-edit').value === 'true';
+                const id = document.getElementById('cat-id').value.trim().toLowerCase();
+                const label = document.getElementById('cat-label').value.trim();
+                const icon = document.getElementById('cat-icon').value.trim();
+                const coverImage = document.getElementById('cat-cover').value.trim();
+                const description = document.getElementById('cat-description').value.trim();
+
+                const newCat = { id, label, icon, description };
+                if (coverImage) newCat.coverImage = coverImage;
+
+                if (isEdit) {
+                    const idx = dataset.categories.findIndex(c => c.id === id);
+                    if (idx !== -1) {
+                        dataset.categories[idx] = newCat;
+                        showToast(`Category "${label}" updated successfully.`);
+                    }
+                } else {
+                    if (dataset.categories.some(c => c.id === id)) {
+                        alert(`Category ID "${id}" already exists. Please choose a unique ID.`);
+                        return;
+                    }
+                    dataset.categories.push(newCat);
+                    showToast(`Category "${label}" added successfully.`);
+                }
+
+                SP.saveData(dataset);
+                closeCatModal();
+                refreshAllViews();
+            });
+
+            // 11. Table Row Actions (Edit / Delete / View) via event delegation
+            document.getElementById('packages-table-body').addEventListener('click', (e) => {
+                const btn = e.target.closest('button[data-action]');
+                if (!btn) return;
+                const action = btn.getAttribute('data-action');
+                const id = btn.getAttribute('data-id');
+
+                if (action === 'edit-pkg') {
+                    const pkg = dataset.packages.find(p => p.id === id);
+                    if (pkg) openPkgModal(true, pkg);
+                } else if (action === 'del-pkg') {
+                    const pkg = dataset.packages.find(p => p.id === id);
+                    if (pkg && confirm(`Are you sure you want to permanently delete package "${pkg.name}"?`)) {
+                        dataset.packages = dataset.packages.filter(p => p.id !== id);
+                        SP.saveData(dataset);
+                        showToast(`Package "${pkg.name}" deleted.`, 'error');
+                        refreshAllViews();
+                    }
+                }
+            });
+
+            document.getElementById('categories-table-body').addEventListener('click', (e) => {
+                const btn = e.target.closest('button[data-action]');
+                if (!btn) return;
+                const action = btn.getAttribute('data-action');
+                const id = btn.getAttribute('data-id');
+
+                if (action === 'view-cat') {
+                    const cat = dataset.categories.find(c => c.id === id);
+                    if (cat) openViewCatModal(cat);
+                } else if (action === 'edit-cat') {
+                    const cat = dataset.categories.find(c => c.id === id);
+                    if (cat) openCatModal(true, cat);
+                } else if (action === 'del-cat') {
+                    const cat = dataset.categories.find(c => c.id === id);
+                    if (!cat) return;
+
+                    const linkedCount = dataset.packages.filter(p => p.category === id).length;
+                    let msg = `Are you sure you want to delete category "${cat.label}"?`;
+                    if (linkedCount > 0) {
+                        msg = `Warning: ${linkedCount} package(s) currently belong to this category.\nDeleting this category will leave those packages uncategorized.\n\nDo you want to proceed?`;
+                    }
+
+                    if (confirm(msg)) {
+                        dataset.categories = dataset.categories.filter(c => c.id !== id);
+                        SP.saveData(dataset);
+                        showToast(`Category "${cat.label}" deleted.`, 'error');
+                        refreshAllViews();
+                    }
+                }
+            });
+
+            // 12. Settings Tab: Change Username & Password
+            document.getElementById('form-update-creds').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const curPass = document.getElementById('setting-current-pass').value;
+                const newUser = document.getElementById('setting-new-user').value.trim();
+                const newPass = document.getElementById('setting-new-pass').value;
+                const confPass = document.getElementById('setting-confirm-pass').value;
+
+                const CREDS_KEY = 'saveron_admin_creds';
+                let creds = (typeof window !== 'undefined' && window.SAVERON_ADMIN_DATA) ? window.SAVERON_ADMIN_DATA : { username: 'admin', password: 'saveron2026' };
+                try {
+                    const stored = localStorage.getItem(CREDS_KEY);
+                    if (stored) creds = JSON.parse(stored);
+                } catch (err) { }
+
+                if (curPass !== creds.password) {
+                    showToast('Current password does not match.', 'error');
+                    document.getElementById('setting-current-pass').focus();
+                    return;
+                }
+
+                if (newPass !== confPass) {
+                    showToast('New password and confirmation do not match.', 'error');
+                    document.getElementById('setting-confirm-pass').focus();
+                    return;
+                }
+
+                // Save updated credentials
+                const updatedCreds = {
+                    username: newUser,
+                    password: newPass,
+                    role: "administrator",
+                    updatedAt: new Date().toISOString()
+                };
+                localStorage.setItem(CREDS_KEY, JSON.stringify(updatedCreds));
+                sessionStorage.setItem('saveron_admin_user', newUser);
+
+                document.getElementById('nav-user-name').textContent = newUser;
+                document.getElementById('setting-current-user').value = newUser;
+                document.getElementById('form-update-creds').reset();
+                document.getElementById('setting-current-user').value = newUser;
+
+                showToast('Admin credentials updated! You can download the updated admin.json below.');
+            });
+
+            // 13. Settings Tab: Export packages.json
+            document.getElementById('btn-export-json').addEventListener('click', () => {
+                const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dataset, null, 2));
+                const dlAnchor = document.createElement('a');
+                dlAnchor.setAttribute('href', dataStr);
+                dlAnchor.setAttribute('download', 'packages.json');
+                document.body.appendChild(dlAnchor);
+                dlAnchor.click();
+                dlAnchor.remove();
+                showToast('Downloaded packages.json');
+            });
+
+            // 14. Settings Tab: Export packages-data.js
+            document.getElementById('btn-export-js').addEventListener('click', () => {
+                const jsContent = `/**
+     * packages-data.js
+     * Preloaded packages & categories dataset for SAVERON Travel.
+     * Generated from SAVERON Admin Console.
+     */
+window.SAVERON_PACKAGES_DATA = ${JSON.stringify(dataset, null, 2)};
+`;
+                const dataStr = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(jsContent);
+                const dlAnchor = document.createElement('a');
+                dlAnchor.setAttribute('href', dataStr);
+                dlAnchor.setAttribute('download', 'packages-data.js');
+                document.body.appendChild(dlAnchor);
+                dlAnchor.click();
+                dlAnchor.remove();
+                showToast('Downloaded packages-data.js');
+            });
+
+            // 15. Settings Tab: Export admin.json
+            document.getElementById('btn-export-admin-json').addEventListener('click', () => {
+                const CREDS_KEY = 'saveron_admin_creds';
+                let creds = (typeof window !== 'undefined' && window.SAVERON_ADMIN_DATA) ? window.SAVERON_ADMIN_DATA : { username: 'admin', password: 'saveron2026' };
+                try {
+                    const stored = localStorage.getItem(CREDS_KEY);
+                    if (stored) creds = JSON.parse(stored);
+                } catch (e) { }
+
+                const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(creds, null, 2));
+                const dlAnchor = document.createElement('a');
+                dlAnchor.setAttribute('href', dataStr);
+                dlAnchor.setAttribute('download', 'admin.json');
+                document.body.appendChild(dlAnchor);
+                dlAnchor.click();
+                dlAnchor.remove();
+                showToast('Downloaded admin.json');
+            });
+
+            // 15. Settings Tab: Reset Factory Default Data
+            document.getElementById('btn-reset-data').addEventListener('click', async () => {
+                if (confirm('Are you sure you want to reset all packages and categories to factory default? Any custom additions or edits made in this browser will be lost.')) {
+                    dataset = await SP.resetData();
+                    refreshAllViews();
+                    showToast('Data reset to factory default.', 'error');
+                }
+            });
+
+            // Initial render
+            refreshAllViews();
+        });
+    </script>
+</body>
+
+</html>

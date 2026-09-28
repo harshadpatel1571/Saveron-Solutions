@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Sign In | SAVERON Travel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/travel-theme.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 10% 20%, rgba(14, 111, 77, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(6, 32, 23, 0.25) 0%, transparent 45%),
+        var(--sand-light);
+      padding: 24px;
+      font-family: var(--font-sans);
+    }
+
+    .admin-login-card {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 24px 60px rgba(6, 32, 23, 0.12), 0 4px 16px rgba(0, 0, 0, 0.04);
+      padding: 44px 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-login-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--emerald-primary), #6ee7b7, var(--gold-accent));
+    }
+
+    .admin-brand-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .admin-brand-logo {
+      height: 48px;
+      width: auto;
+      margin-bottom: 14px;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--mint-tint);
+      color: var(--emerald-primary);
+      border: 1px solid rgba(14, 111, 77, 0.2);
+      margin-bottom: 10px;
+    }
+
+    .admin-title {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      color: var(--forest-dark);
+      margin: 0 0 6px 0;
+    }
+
+    .admin-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .login-form-group {
+      margin-bottom: 20px;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--forest-dark);
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .login-input-wrap {
+      position: relative;
+    }
+
+    .login-input-wrap i.prefix-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .login-input {
+      width: 100%;
+      height: 46px;
+      padding: 10px 42px 10px 40px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-family: var(--font-sans);
+      color: var(--forest-dark);
+      background: #fafaf9;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: var(--emerald-primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(14, 111, 77, 0.12);
+    }
+
+    .toggle-pwd-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 4px;
+      font-size: 0.95rem;
+    }
+
+    .toggle-pwd-btn:hover {
+      color: var(--forest-dark);
+    }
+
+    .login-alert {
+      display: none;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      margin-bottom: 20px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-alert.error {
+      display: flex;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+    }
+
+    .login-btn {
+      width: 100%;
+      height: 48px;
+      background: var(--emerald-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(14, 111, 77, 0.25);
+    }
+
+    .login-btn:hover {
+      background: var(--emerald-rich);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(14, 111, 77, 0.35);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-credentials-hint {
+      margin-top: 24px;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      border: 1px dashed #cbd5e1;
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .login-credentials-hint strong {
+      color: var(--forest-dark);
+    }
+
+    .back-home-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-home-link:hover {
+      color: var(--emerald-primary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="admin-login-card">
+    <div class="admin-brand-header">
+      <img src="assets/images/saveron-logo.png" alt="SAVERON" class="admin-brand-logo">
+      <br>
+      <div class="admin-badge"><i class="fa-solid fa-lock"></i> Administration Portal</div>
+      <h1 class="admin-title">Portal Sign In</h1>
+      <p class="admin-subtitle">Manage sanctuary packages, categories &amp; settings</p>
+    </div>
+
+    <div class="login-alert" id="login-alert" role="alert">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="login-alert-msg">Invalid credentials. Please try again.</span>
+    </div>
+
+    <form id="admin-login-form" autocomplete="off">
+      <div class="login-form-group">
+        <label class="login-label" for="username">Username</label>
+        <div class="login-input-wrap">
+          <i class="fa-regular fa-user prefix-icon"></i>
+          <input type="text" id="username" class="login-input" placeholder="Enter admin username" required autofocus>
+        </div>
+      </div>
+
+      <div class="login-form-group">
+        <label class="login-label" for="password">Password</label>
+        <div class="login-input-wrap">
+          <i class="fa-solid fa-key prefix-icon"></i>
+          <input type="password" id="password" class="login-input" placeholder="Enter admin password" required>
+          <button type="button" class="toggle-pwd-btn" id="toggle-pwd" aria-label="Toggle password visibility">
+            <i class="fa-regular fa-eye" id="toggle-pwd-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="login-btn" id="btn-submit">
+        <span>Sign In to Dashboard</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <a href="index.html" class="back-home-link">
+      <i class="fa-solid fa-arrow-left"></i> Return to Live Website
+    </a>
+  </div>
+
+  <script src="assets/data/admin-data.js"></script>
+  <script>
+    (async function () {
+      // 1. Check if session already exists
+      if (sessionStorage.getItem('saveron_admin_logged_in') === 'true') {
+        window.location.replace('admin.html');
+        return;
+      }
+
+      const CREDS_KEY = 'saveron_admin_creds';
+
+      // 2. Fetch credentials from localStorage, admin.json, or admin-data.js
+      async function loadCredentials() {
+        try {
+          const stored = localStorage.getItem(CREDS_KEY);
+          if (stored) return JSON.parse(stored);
+        } catch (e) { }
+
+        if (typeof window !== 'undefined' && window.SAVERON_ADMIN_DATA) {
+          return window.SAVERON_ADMIN_DATA;
+        }
+
+        try {
+          const res = await fetch('assets/data/admin.json');
+          return await res.json();
+        } catch (e) {
+          return { username: 'admin', password: 'saveron2026' };
+        }
+      }
+
+      const creds = await loadCredentials();
+      if (!localStorage.getItem(CREDS_KEY)) {
+        try {
+          localStorage.setItem(CREDS_KEY, JSON.stringify(creds));
+        } catch (e) { }
+      }
+
+      // Update hint with current configured username
+      const hintUserCode = document.querySelector('.login-credentials-hint code');
+      if (hintUserCode && creds.username) {
+        hintUserCode.textContent = creds.username;
+      }
+
+      // 3. Password visibility toggle
+      const pwdInput = document.getElementById('password');
+      const togglePwdBtn = document.getElementById('toggle-pwd');
+      const togglePwdIcon = document.getElementById('toggle-pwd-icon');
+
+      togglePwdBtn.addEventListener('click', () => {
+        const isPwd = pwdInput.type === 'password';
+        pwdInput.type = isPwd ? 'text' : 'password';
+        togglePwdIcon.className = isPwd ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+      });
+
+      // 4. Form submission & validation
+      const form = document.getElementById('admin-login-form');
+      const alertBox = document.getElementById('login-alert');
+      const alertMsg = document.getElementById('login-alert-msg');
+      const submitBtn = document.getElementById('btn-submit');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userInput = document.getElementById('username').value.trim();
+        const passInput = document.getElementById('password').value;
+
+        // Fetch latest credentials
+        const activeCreds = await loadCredentials();
+
+        if (userInput === activeCreds.username && passInput === activeCreds.password) {
+          // Success! Save session
+          sessionStorage.setItem('saveron_admin_logged_in', 'true');
+          sessionStorage.setItem('saveron_admin_user', activeCreds.username);
+          sessionStorage.setItem('saveron_admin_login_time', new Date().toISOString());
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+          setTimeout(() => {
+            window.location.replace('admin.html');
+          }, 350);
+        } else {
+          // Failure
+          alertMsg.textContent = 'Invalid username or password. Please try again.';
+          alertBox.className = 'login-alert error';
+          pwdInput.value = '';
+          pwdInput.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

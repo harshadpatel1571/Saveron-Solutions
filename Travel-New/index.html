@@ -11,7 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="assets/css/travel-theme.css">
+  <script src="assets/data/packages-data.js"></script>
   <script src="assets/js/travel-3d.js" defer></script>
+  <script src="assets/js/packages-loader.js" defer></script>
   <script src="assets/js/travel-main.js" defer></script>
 
   <script type="application/ld+json">
@@ -105,7 +107,7 @@
       <div class="sound-bar"></div>
     </div>
     <span class="sound-label">Nature Ambience: OFF</span>
-    <span style="font-size: 1rem;">🌿</span>
+    <span style="font-size: 1rem;">&#127807;</span>
   </div>
 
   <!-- Zero-Overlap Header Wrapper -->
@@ -113,12 +115,12 @@
     <div class="top-announcement">
       <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="color: #6ee7b7; font-size: 0.9rem;">🍃</span>
+          <span style="color: #6ee7b7; font-size: 0.9rem;">&#127811;</span>
           <span>Serene waterfall retreats, bespoke nature holidays & corporate offsites across India.</span>
         </div>
         <div style="display: flex; align-items: center; gap: 18px; font-size: 0.8rem;">
           <a href="contact.html" style="color: #6ee7b7; text-decoration: underline;">Speak to a Travel Specialist</a>
-          <span>•</span>
+          <span>&bull;</span>
           <a href="tel:02814091215" style="color: #ffffff;">Desk: 02814 091215</a>
         </div>
       </div>
@@ -142,18 +144,18 @@
           <li><a href="contact.html" class="nav-link">Contact</a></li>
           <!-- Mobile-only inside drawer -->
           <li class="nav-mobile-extra nav-mobile-divider"></li>
-          <li class="nav-mobile-extra"><a class="nav-mobile-portal-link" href="../IT-New/index.html"><span style="color: var(--emerald-primary);">◈</span> IT Solutions ↗</a></li>
+          <li class="nav-mobile-extra"><a class="nav-mobile-portal-link" href="../IT-New/index.html"><span style="color: var(--emerald-primary);">&#9672;</span> IT Solutions &#8599;</a></li>
           <li class="nav-mobile-extra"><a class="btn btn-emerald nav-mobile-cta" href="contact.html">Plan Your Journey</a></li>
         </ul>
 
         <div class="nav-actions">
           <a href="../IT-New/index.html" class="nav-portal-link" title="Explore IT Solutions">
-            <span style="color: var(--emerald-primary);">◈</span> IT Solutions ↗
+            <span style="color: var(--emerald-primary);">&#9672;</span> IT Solutions &#8599;
           </a>
           <a href="contact.html" class="btn btn-emerald" style="padding: 10px 24px; font-size: 0.88rem;">
             Plan Your Journey
           </a>
-          <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+          <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
         </div>
       </div>
     </header>
@@ -191,7 +193,7 @@
 
           <div class="hero-btn-group">
             <a href="#destinations" class="btn btn-emerald">
-              Explore Sanctuaries →
+              Explore Sanctuaries &rarr;
             </a>
             <a href="services.html" class="btn btn-outline">
               Corporate & Bespoke Retiring
@@ -200,9 +202,9 @@
 
           <!-- Trust Highlights -->
           <div style="display: flex; gap: 28px; font-size: 0.88rem; font-weight: 600; color: var(--forest-dark);">
-            <div><span style="color: var(--emerald-primary);">✓</span> 100% Private Custom Itineraries</div>
-            <div><span style="color: var(--emerald-primary);">✓</span> Handpicked Eco-Luxury Resorts</div>
-            <div><span style="color: var(--emerald-primary);">✓</span> 24×7 In-Trip Concierge</div>
+            <div><span style="color: var(--emerald-primary);">&#10003;</span> 100% Private Custom Itineraries</div>
+            <div><span style="color: var(--emerald-primary);">&#10003;</span> Handpicked Eco-Luxury Resorts</div>
+            <div><span style="color: var(--emerald-primary);">&#10003;</span> 24&times;7 In-Trip Concierge</div>
           </div>
         </div>
       </div>
@@ -260,7 +262,7 @@
 
             <div>
               <button type="submit" class="btn btn-emerald" style="width: 100%; height: 50px;">
-                Search Sanctuaries 🔍
+                Search Sanctuaries &#128269;
               </button>
             </div>
 
@@ -269,128 +271,68 @@
       </div>
     </div>
 
-    <!-- Featured Sanctuaries Section -->
+
+    <!-- Featured Sanctuaries Section &mdash; Category-first view -->
     <section class="section" id="destinations">
       <div class="container">
         <div class="section-header">
-          <div class="badge-leaf">HANDPICKED EXPERIENCES</div>
+          <div class="badge-leaf">BROWSE BY EXPERIENCE</div>
           <h2 class="section-title">Breathtaking Sanctuaries of India</h2>
           <p class="section-subtitle">
-            Immerse yourself in destinations celebrated for natural splendor, serene waters, and warm hospitality.
+            Choose a travel style to reveal our handpicked sanctuaries crafted for that experience.
           </p>
         </div>
 
-        <div class="sanctuaries-grid">
-          
-          <!-- Card 1: Kerala -->
-          <article class="sanctuary-card">
-            <div class="sanctuary-image-wrap">
-              <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80" alt="Kerala Backwaters and Palm Trees" loading="lazy">
-              <span class="sanctuary-tag">WATERFALLS & BACKWATERS</span>
-            </div>
-            <div class="sanctuary-body">
-              <h3>Kerala Backwaters & Munnar Hills</h3>
-              <p>
-                Cheeyappara and Athirappilly waterfalls, misty tea terraces in Munnar, spice plantations in Thekkady, and private luxury houseboats in Alleppey.
-              </p>
-              <div class="sanctuary-meta">
-                <span>⏱ 7 Days / 6 Nights</span>
-                <a href="packages.html?dest=kerala" class="action-link">View Itinerary →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 2: Kashmir -->
-          <article class="sanctuary-card">
-            <div class="sanctuary-image-wrap">
-              <img src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=900&q=80" alt="Kashmir Mountains and Green Valley" loading="lazy">
-              <span class="sanctuary-tag">PINE VALLEYS & MEADOWS</span>
-            </div>
-            <div class="sanctuary-body">
-              <h3>Kashmir Valley & Alpine Escapes</h3>
-              <p>
-                Pine-fringed gondola rides in Gulmarg, trout streams in Betaab Valley, tranquil Dal Lake shikara cruises, and peaceful mountain stays in Pahalgam.
-              </p>
-              <div class="sanctuary-meta">
-                <span>⏱ 6 Days / 5 Nights</span>
-                <a href="packages.html?dest=kashmir" class="action-link">View Itinerary →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 3: Meghalaya -->
-          <article class="sanctuary-card">
-            <div class="sanctuary-image-wrap">
-              <img src="https://images.unsplash.com/photo-1581791534721-e599df4417f7?auto=format&fit=crop&w=900&q=80" alt="Meghalaya Green Hills and Waterfalls" loading="lazy">
-              <span class="sanctuary-tag">LIVING BRIDGES & FALLS</span>
-            </div>
-            <div class="sanctuary-body">
-              <h3>Meghalaya & Living Root Bridges</h3>
-              <p>
-                The roaring cascades of Nohkalikai, ancient double-decker root bridges in Nongriat, crystal-clear boat rides on Dawki River, and Cherrapunji clouds.
-              </p>
-              <div class="sanctuary-meta">
-                <span>⏱ 8 Days / 7 Nights</span>
-                <a href="packages.html?dest=meghalaya" class="action-link">View Itinerary →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 4: Ladakh -->
-          <article class="sanctuary-card">
-            <div class="sanctuary-image-wrap">
-              <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=80" alt="Ladakh Turquoise Lake and Mountains" loading="lazy">
-              <span class="sanctuary-tag">GLACIAL LAKES</span>
-            </div>
-            <div class="sanctuary-body">
-              <h3>Ladakh Glacial Lakes & Passes</h3>
-              <p>
-                The ethereal turquoise waters of Pangong Tso, sand dunes of Nubra Valley, Khardung La pass, and cliffside ancient monasteries.
-              </p>
-              <div class="sanctuary-meta">
-                <span>⏱ 7 Days / 6 Nights</span>
-                <a href="packages.html?dest=ladakh" class="action-link">View Itinerary →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 5: Rajasthan -->
-          <article class="sanctuary-card">
-            <div class="sanctuary-image-wrap">
-              <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80" alt="Rajasthan Royal Palace on Lake" loading="lazy">
-              <span class="sanctuary-tag">ROYAL LAKES & PALACES</span>
-            </div>
-            <div class="sanctuary-body">
-              <h3>Royal Rajasthan & Lake Sanctuaries</h3>
-              <p>
-                Heritage palace stays on Lake Pichola, private fort tours in Jaipur, starlit desert camps in Jaisalmer, and tiger safaris in Ranthambore.
-              </p>
-              <div class="sanctuary-meta">
-                <span>⏱ 8 Days / 7 Nights</span>
-                <a href="packages.html?dest=rajasthan" class="action-link">View Itinerary →</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 6: Andaman -->
-          <article class="sanctuary-card">
-            <div class="sanctuary-image-wrap">
-              <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=900&q=80" alt="Andaman Tropical Turquoise Beach" loading="lazy">
-              <span class="sanctuary-tag">CORAL LAGOONS</span>
-            </div>
-            <div class="sanctuary-body">
-              <h3>Andaman Coral Lagoons & Rainforests</h3>
-              <p>
-                Radhanagar white sand sunsets in Havelock, scuba diving on Neil Island reefs, catamaran transfers, and luxury beachfront villa living.
-              </p>
-              <div class="sanctuary-meta">
-                <span>⏱ 6 Days / 5 Nights</span>
-                <a href="packages.html?dest=andaman" class="action-link">View Itinerary →</a>
-              </div>
-            </div>
-          </article>
-
+        <!-- Category tiles view -->
+        <div id="home-view-categories">
+          <div class="pkg-categories-grid" id="home-categories-grid">
+            <div class="pkg-loading">Loading categories&hellip;</div>
+          </div>
+          <div style="text-align:center; margin-top: 8px;">
+            <a href="packages.html" class="btn btn-outline" style="font-size:0.88rem;">View All Packages &rarr;</a>
+          </div>
         </div>
+
+        <!-- Category packages inline reveal -->
+        <div id="home-view-cat-pkgs" style="display:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:28px;">
+            <button class="pkg-back-btn" id="home-btn-back">&#8592; All Categories</button>
+            <a href="packages.html" class="action-link" style="font-size:0.88rem;">View All Packages &rarr;</a>
+          </div>
+          <div class="pkg-active-category-header" id="home-active-cat-header"></div>
+          <div class="sanctuaries-grid" id="home-cat-pkgs-list"></div>
+        </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+          const SP = window.SaveronPackages;
+          if (!SP) return;
+          const { categories, packages } = await SP.loadData();
+          const viewCats   = document.getElementById('home-view-categories');
+          const viewPkgs   = document.getElementById('home-view-cat-pkgs');
+          const catHeader  = document.getElementById('home-active-cat-header');
+          const pkgsList   = document.getElementById('home-cat-pkgs-list');
+          const btnBack    = document.getElementById('home-btn-back');
+
+          await SP.renderCategories('home-categories-grid', function(catId, catLabel) {
+            const cat = categories.find(c => c.id === catId);
+            const isImgIcon = cat && cat.icon && (cat.icon.startsWith('data:') || cat.icon.startsWith('http') || cat.icon.startsWith('assets/'));
+            const iconHTML = isImgIcon ? '<img src="' + cat.icon + '" alt="" style="width:28px; height:28px; object-fit:contain; vertical-align:middle; border-radius:4px; margin-right:8px;">' : (cat ? cat.icon + ' ' : '');
+            catHeader.innerHTML = '<h2>' + iconHTML + catLabel + '</h2><p>' + (cat ? cat.description : '') + '</p>';
+            pkgsList.innerHTML = '';
+            packages.filter(p => p.category === catId).forEach(p => pkgsList.appendChild(SP.buildCard(p, true, true)));
+            viewCats.style.display = 'none';
+            viewPkgs.style.display = '';
+            viewPkgs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+
+          btnBack.addEventListener('click', function() {
+            viewPkgs.style.display = 'none';
+            viewCats.style.display = '';
+            viewCats.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+        </script>
       </div>
     </section>
 
@@ -408,7 +350,7 @@
         <div class="experience-grid">
           
           <div class="experience-card">
-            <div class="experience-icon">🌿</div>
+            <div class="experience-icon">&#127807;</div>
             <h3>Handcrafted Itineraries</h3>
             <p>
               No cookie-cutter tours. Every route, boutique property, and naturalist guide is curated to match your personal pacing and desires.
@@ -416,7 +358,7 @@
           </div>
 
           <div class="experience-card">
-            <div class="experience-icon">🏡</div>
+            <div class="experience-icon">&#127969;</div>
             <h3>Boutique Eco-Resorts</h3>
             <p>
               Stay at handpicked forest retreats, lakeside heritage palaces, and private tea bungalows with verified standards of luxury.
@@ -424,8 +366,8 @@
           </div>
 
           <div class="experience-card">
-            <div class="experience-icon">🛡️</div>
-            <h3>24×7 In-Trip Concierge</h3>
+            <div class="experience-icon">&#128737;&#65039;</div>
+            <h3>24&times;7 In-Trip Concierge</h3>
             <p>
               From prompt airport pickups to instant flight re-bookings and local guidance, our dedicated operations team remains with you always.
             </p>
@@ -445,7 +387,7 @@
               Inspire Your Team in Breathtaking Surroundings
             </h2>
             <p class="corporate-banner-desc">
-              SAVERON orchestrates executive offsites, leadership retreats, and annual corporate conferences in India's most serene nature resorts—complete with meeting facilities, group flight blocks, and team wellness experiences.
+              SAVERON orchestrates executive offsites, leadership retreats, and annual corporate conferences in India's most serene nature resorts&mdash;complete with meeting facilities, group flight blocks, and team wellness experiences.
             </p>
             <div class="corporate-btn-group">
               <a href="services.html#corporate" class="btn btn-emerald">Explore Corporate Retreats</a>
@@ -457,20 +399,20 @@
             <h3 class="corporate-standards-title">Corporate Desk Standards</h3>
             <div class="corporate-standards-list">
               <div class="corporate-standard-item">
-                <span class="standard-check">✓</span>
+                <span class="standard-check">&#10003;</span>
                 <span>High-volume flight ticketing & block allocations</span>
               </div>
               <div class="corporate-standard-item">
-                <span class="standard-check">✓</span>
+                <span class="standard-check">&#10003;</span>
                 <span>Centralized monthly invoicing & GST tax compliance</span>
               </div>
               <div class="corporate-standard-item">
-                <span class="standard-check">✓</span>
+                <span class="standard-check">&#10003;</span>
                 <span>Scenic retreat properties with conference banquets</span>
               </div>
               <div class="corporate-standard-item">
-                <span class="standard-check">✓</span>
-                <span>Dedicated Relationship Manager & 24×7 assistance</span>
+                <span class="standard-check">&#10003;</span>
+                <span>Dedicated Relationship Manager & 24&times;7 assistance</span>
               </div>
             </div>
           </div>
@@ -523,7 +465,7 @@
               <div class="contact-card-icon"><i class="fa-solid fa-location-dot" style="color:var(--emerald-primary);"></i></div>
               <div>
                 <div class="contact-card-label">Head Office</div>
-                <div class="contact-card-val">India &bull; GPS: 22.31924° N, 70.76842° E</div>
+                <div class="contact-card-val">India &bull; GPS: 22.31924&deg; N, 70.76842&deg; E</div>
               </div>
             </div>
 
@@ -550,12 +492,12 @@
             </div>
 
             <div style="background: var(--mint-tint); border: 1px solid rgba(16, 124, 87, 0.2); border-radius: var(--radius-lg); padding: 26px; box-shadow: var(--shadow-sm);">
-              <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--forest-dark); margin-bottom: 8px;">🌿 24×7 In-Journey Ground Support</h3>
+              <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--forest-dark); margin-bottom: 8px;">&#127807; 24&times;7 In-Journey Ground Support</h3>
               <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 12px;">
                 Confirmed travelers and corporate accounts receive instant on-ground support for flight modifications, weather changes, and hotel adjustments.
               </p>
               <div style="font-size: 0.86rem; font-weight: 700; color: var(--emerald-primary);">
-                ● Live Operations Desk: ACTIVE 24/7
+                &#9679; Live Operations Desk: ACTIVE 24/7
               </div>
             </div>
           </div>
@@ -582,13 +524,7 @@
                 <div class="form-field">
                   <label class="form-label" for="home-service">Destination / Interest <b>*</b></label>
                   <select id="home-service" name="service" class="form-select" required>
-                    <option value="Kerala Backwaters & Waterfalls">Kerala Backwaters & Munnar</option>
-                    <option value="Kashmir Pine Valleys">Kashmir Pine Valleys</option>
-                    <option value="Meghalaya Waterfall Wonder">Meghalaya & Living Root Bridges</option>
-                    <option value="Ladakh Glacial Lakes">Ladakh & Pangong Tso</option>
-                    <option value="Royal Rajasthan & Lakes">Royal Rajasthan & Wildlife</option>
-                    <option value="Corporate Retreat & Offsite">Corporate Offsite & Retreat</option>
-                    <option value="Custom Bespoke Itinerary">Custom Bespoke Itinerary</option>
+                    <!-- Populated dynamically from SAVERON_PACKAGES_DATA.categories -->
                   </select>
                 </div>
 
@@ -600,7 +536,7 @@
 
               <div style="margin-top: 24px;">
                 <button type="submit" class="btn btn-emerald" style="width: 100%;">
-                  Send Travel Inquiry 🌿
+                  Send Travel Inquiry &#127807;
                 </button>
                 <div class="form-status" role="status" aria-live="polite"></div>
               </div>
@@ -661,10 +597,10 @@
         <div>
           <h4 class="footer-col-title">SAVERON Ecosystem</h4>
           <ul class="footer-nav-list">
-            <li><a href="../IT-New/index.html">IT Solutions Portal ↗</a></li>
+            <li><a href="../IT-New/index.html">IT Solutions Portal &#8599;</a></li>
             <li><a href="services.html#corporate">Corporate Desk</a></li>
             <li><a href="services.html#mice">Group Offsites</a></li>
-            <li><a href="contact.html">24×7 Traveler Support</a></li>
+            <li><a href="contact.html">24&times;7 Traveler Support</a></li>
           </ul>
         </div>
 
@@ -677,7 +613,7 @@
         <div style="display: flex; gap: 20px;">
           <span>CIN: Registered in India</span>
           <span>&bull;</span>
-          <a href="../IT-New/index.html" style="color: #6ee7b7;">Visit IT Division ↗</a>
+          <a href="../IT-New/index.html" style="color: #6ee7b7;">Visit IT Division &#8599;</a>
         </div>
       </div>
     </div>
@@ -693,6 +629,31 @@
       <span>Chat with us</span>
     </div>
   </a>
+
+  <!-- Dynamic Category Dropdown for Home Contact Form -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const homeSrv = document.getElementById('home-service');
+      let data = window.SAVERON_PACKAGES_DATA;
+      try {
+        const local = localStorage.getItem('saveron_packages_data');
+        if (local) data = JSON.parse(local);
+      } catch (e) {}
+
+      if (homeSrv && data && Array.isArray(data.categories)) {
+        data.categories.forEach(cat => {
+          const opt = document.createElement('option');
+          opt.value = cat.label;
+          opt.textContent = (cat.icon && !cat.icon.startsWith('data:') && !cat.icon.startsWith('http') && !cat.icon.startsWith('assets/') ? cat.icon + ' ' : '') + cat.label;
+          homeSrv.appendChild(opt);
+        });
+        const custom = document.createElement('option');
+        custom.value = 'Custom Bespoke Itinerary';
+        custom.textContent = '✏️ Custom Bespoke Itinerary';
+        homeSrv.appendChild(custom);
+      }
+    });
+  </script>
 
 </body>
 </html>

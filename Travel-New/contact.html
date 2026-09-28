@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="assets/css/travel-theme.css">
+  <script src="assets/data/packages-data.js"></script>
   <script src="assets/js/travel-main.js" defer></script>
 </head>
 <body>
@@ -190,13 +191,7 @@
                 <div class="form-field">
                   <label class="form-label" for="travel-service">Travel Category <b>*</b></label>
                   <select id="travel-service" name="service" class="form-select" required>
-                    <option value="Kerala Backwaters & Munnar">Kerala Backwaters & Munnar</option>
-                    <option value="Kashmir Pine Valleys">Kashmir Pine Valleys</option>
-                    <option value="Meghalaya Waterfall Wonder">Meghalaya & Living Root Bridges</option>
-                    <option value="Ladakh Glacial Lakes">Ladakh & Pangong Tso</option>
-                    <option value="Royal Rajasthan & Lakes">Royal Rajasthan & Wildlife</option>
-                    <option value="Corporate Retreat & Offsite">Corporate Offsite & Retreat</option>
-                    <option value="Custom Bespoke Itinerary">Custom Bespoke Itinerary</option>
+                    <!-- Populated dynamically from SAVERON_PACKAGES_DATA.categories -->
                   </select>
                 </div>
 
@@ -346,16 +341,80 @@
     </div>
   </footer>
 
-  <!-- Script for Auto-Prefill from URL Parameters -->
+  <!-- Script for Dynamic Category Dropdown + URL Auto-Prefill -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // 0. Retrieve packages data (preferring localStorage overrides from Admin Panel)
+      let data = window.SAVERON_PACKAGES_DATA;
+      try {
+        const local = localStorage.getItem('saveron_packages_data');
+        if (local) data = JSON.parse(local);
+      } catch (e) {}
+
+      // 1. Populate Travel Category dropdown from live categories data
+      const srvSelect = document.getElementById('travel-service');
+      if (srvSelect && data && Array.isArray(data.categories)) {
+        data.categories.forEach(cat => {
+          const opt = document.createElement('option');
+          opt.value = cat.label;
+          opt.textContent = (cat.icon && !cat.icon.startsWith('data:') && !cat.icon.startsWith('http') && !cat.icon.startsWith('assets/') ? cat.icon + ' ' : '') + cat.label;
+          srvSelect.appendChild(opt);
+        });
+        // Always add a custom itinerary fallback at end
+        const custom = document.createElement('option');
+        custom.value = 'Custom Bespoke Itinerary';
+        custom.textContent = '✏️ Custom Bespoke Itinerary';
+        srvSelect.appendChild(custom);
+      }
+
+      // Auto-Prefill from URL Parameters (?pkg=PackageName&cat=categoryId)
       const params = new URLSearchParams(window.location.search);
-      const pkg = params.get('pkg');
-      if (pkg) {
+      const pkgName = params.get('pkg');
+      const catId   = params.get('cat');
+
+      if (pkgName && data) {
+
+        // 1. Find the matching package object by name
+        const pkgObj = Array.isArray(data.packages)
+          ? data.packages.find(p => p.name === decodeURIComponent(pkgName))
+          : null;
+
+        // 2. Auto-select category dropdown
+        //    Priority: match by category ID from pkgObj, fallback to ?cat= param
+        const resolvedCatId = (pkgObj && pkgObj.category) || (catId ? decodeURIComponent(catId) : null);
+        if (resolvedCatId && srvSelect) {
+          // Find the category label for this id
+          const catObj = Array.isArray(data.categories)
+            ? data.categories.find(c => c.id === resolvedCatId)
+            : null;
+          const catLabel = catObj ? catObj.label : resolvedCatId;
+
+          // Select the matching option by value (label) or partial match
+          for (const opt of srvSelect.options) {
+            if (opt.value === catLabel || opt.value.toLowerCase().includes(catLabel.toLowerCase())) {
+              opt.selected = true;
+              break;
+            }
+          }
+        }
+
+        // 3. Fill the message textarea with a rich pre-written inquiry
         const msgField = document.getElementById('travel-message');
-        const srvSelect = document.getElementById('travel-service');
         if (msgField) {
-          msgField.value = `I am interested in inquiring about the "${decodeURIComponent(pkg)}" sanctuary itinerary. Please provide available dates, pricing tiers, and customization options.`;
+          if (pkgObj) {
+            const highlights = Array.isArray(pkgObj.highlights) && pkgObj.highlights.length
+              ? '\n\nHighlights I am interested in:\n' + pkgObj.highlights.map(h => '• ' + h).join('\n')
+              : '';
+            msgField.value =
+              `I am interested in the "${pkgObj.name}" package.\n` +
+              (pkgObj.tagline ? `"${pkgObj.tagline}"\n` : '') +
+              `\n${pkgObj.description || ''}` +
+              highlights +
+              `\n\nPlease share available dates, pricing tiers, and customization options.`;
+          } else {
+            // Fallback if package not found in data
+            msgField.value = `I am interested in inquiring about the "${decodeURIComponent(pkgName)}" sanctuary itinerary. Please provide available dates, pricing tiers, and customization options.`;
+          }
         }
       }
     });
