@@ -154,6 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 6. Contact Form Submission
+    const GOOGLE_SCRIPT_URL = window.SAVERON_SCRIPT_URL || "https://script.google.com/macros/s/AKfycby-Vx0KtXJo4nXjk738RaxeOmlm-4YsuD0TlebPyFbVfyraFtxo4NiwWLP3Dm6bMCsKJg/exec";
+  const ADMIN_EMAIL = "info@saveronsolutions.com";
+
   document.querySelectorAll('[data-contact-form]').forEach(form => {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -180,36 +183,49 @@ document.addEventListener('DOMContentLoaded', () => {
         "Timestamp": new Date().toLocaleString()
       };
       for (const key in data) {
-        if (key.toLowerCase() !== 'website' && data[key] && data[key].trim() !== '') {
+        if (key.toLowerCase() !== 'website' && data[key] && typeof data[key] === 'string' && data[key].trim() !== '') {
           filteredData[key] = data[key];
         }
       }
 
       const adminHtml = generateAdminEmail(filteredData);
       const customerHtml = generateCustomerEmail(data.name || "Valued Guest");
+      const emailSubject = `[Nature Travel] New Inquiry from ${data.name || 'Traveler'} — ${data.service || 'General'}`;
 
       const payload = {
-        adminEmail: "info@saveronsolutions.com",
-        adminSubject: `[Nature Travel] New Inquiry from ${data.name || 'Traveler'} — ${data.service || 'General'}`,
+        adminEmail: ADMIN_EMAIL,
+        adminSubject: emailSubject,
         adminHtml,
-        customerEmail: data.email,
+        customerEmail: data.email || '',
         customerSubject: "Your SAVERON Travel Inquiry Has Been Received 🌿",
         customerHtml
       };
 
+      // Generate mailto fallback
+      let mailtoBody = "Travel Inquiry Details:\n";
+      for (const [k, v] of Object.entries(filteredData)) {
+        mailtoBody += `${k}: ${v}\n`;
+      }
+      const mailtoUrl = `mailto:${encodeURIComponent(ADMIN_EMAIL)}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+
       try {
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGvvzMZXMe-A4hBtC7nbV8xbisVOYaQvR--wc70bNc2fH37Te5rXHGR9t773yMlh1p/exec";
         await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
-        if (status) { status.className = 'form-status success'; status.innerHTML = '✓ Your inquiry has been submitted. A travel specialist will reach out within 24 hours.'; }
+        if (status) {
+          status.className = 'form-status success';
+          status.innerHTML = '✓ Your inquiry has been submitted. A travel specialist will reach out within 24 hours. (Urgent? <a href="' + mailtoUrl + '" style="color:#059669;text-decoration:underline;">Email directly</a>)';
+        }
         form.reset();
       } catch (err) {
-        if (status) { status.className = 'form-status success'; status.innerHTML = '✓ Inquiry received. Our travel team has been notified.'; }
-        form.reset();
+        console.error("Travel form dispatch error:", err);
+        if (status) {
+          status.className = 'form-status error';
+          status.innerHTML = '⚠️ Transmission issue encountered. <a href="' + mailtoUrl + '" style="color:#059669;text-decoration:underline;font-weight:700;">Click here to send directly via Email</a> or call <a href="tel:02814091215" style="color:#059669;text-decoration:underline;">02814 091215</a>.';
+        }
       } finally {
         button.disabled = false;
         button.innerHTML = originalBtnText;

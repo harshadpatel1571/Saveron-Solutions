@@ -240,7 +240,10 @@ document.addEventListener('DOMContentLoaded', () => {
     statNumbers.forEach(num => observer.observe(num));
   }
 
-  // 9. Contact Form & Google Apps Script Dispatch
+  // 9. Contact Form & Email Dispatch
+    const GOOGLE_SCRIPT_URL = window.SAVERON_SCRIPT_URL || "https://script.google.com/macros/s/AKfycby-Vx0KtXJo4nXjk738RaxeOmlm-4YsuD0TlebPyFbVfyraFtxo4NiwWLP3Dm6bMCsKJg/exec";
+  const ADMIN_EMAIL = "info@saveronsolutions.com";
+
   const contactForms = document.querySelectorAll('[data-contact-form]');
   contactForms.forEach(form => {
     form.addEventListener('submit', async (event) => {
@@ -262,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.innerHTML = '<span class="pulse-dot"></span> Transmitting Securely...';
       if (status) {
         status.className = 'form-status';
-        status.textContent = 'Encrypting & dispatching inquiry payload...';
+        status.textContent = 'Transmitting inquiry payload...';
       }
 
       const formData = new FormData(form);
@@ -275,26 +278,32 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       for (const key in data) {
-        if (key.toLowerCase() !== 'website' && data[key] && data[key].trim() !== '') {
+        if (key.toLowerCase() !== 'website' && data[key] && typeof data[key] === 'string' && data[key].trim() !== '') {
           filteredData[key] = data[key];
         }
       }
 
       const adminHtml = generateAdminEmail(filteredData);
       const customerHtml = generateCustomerEmail(data.name || "Valued Client");
+      const emailSubject = `[High Priority] New IT Inquiry from ${data.name || 'Client'} (${data.company || 'Enterprise'})`;
 
       const payload = {
-        adminEmail: "info@saveronsolutions.com",
-        adminSubject: `[High Priority] New IT Inquiry from ${data.name || 'Client'} (${data.company || 'Enterprise'})`,
+        adminEmail: ADMIN_EMAIL,
+        adminSubject: emailSubject,
         adminHtml: adminHtml,
-        customerEmail: data.email,
+        customerEmail: data.email || '',
         customerSubject: `Consultation Confirmed: Saveron Solutions Technology Team`,
         customerHtml: customerHtml
       };
 
+      // Generate mailto fallback
+      let mailtoBody = "Inquiry Details:\n";
+      for (const [k, v] of Object.entries(filteredData)) {
+        mailtoBody += `${k}: ${v}\n`;
+      }
+      const mailtoUrl = `mailto:${encodeURIComponent(ADMIN_EMAIL)}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+
       try {
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGvvzMZXMe-A4hBtC7nbV8xbisVOYaQvR--wc70bNc2fH37Te5rXHGR9t773yMlh1p/exec";
-        
         await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
@@ -304,15 +313,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (status) {
           status.className = 'form-status success';
-          status.innerHTML = '✓ Inquiry transmitted successfully. An engineering advisor will reach out within 24 hours.';
+          status.innerHTML = '✓ Inquiry transmitted successfully. An engineering advisor will reach out within 24 hours. (Need urgent assistance? <a href="' + mailtoUrl + '" style="color:#00f0ff;text-decoration:underline;">Email directly</a>)';
         }
         form.reset();
       } catch (err) {
+        console.error("Form dispatch error:", err);
         if (status) {
-          status.className = 'form-status success';
-          status.innerHTML = '✓ Inquiry received successfully. Our technology team has been notified.';
+          status.className = 'form-status error';
+          status.innerHTML = '⚠️ Transmission issue encountered. <a href="' + mailtoUrl + '" style="color:#00f0ff;text-decoration:underline;font-weight:700;">Click here to send directly via Email</a> or call <a href="tel:02814091215" style="color:#00f0ff;text-decoration:underline;">02814 091215</a>.';
         }
-        form.reset();
       } finally {
         button.disabled = false;
         button.innerHTML = originalBtnText;
