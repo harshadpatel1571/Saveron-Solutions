@@ -57,6 +57,39 @@
     return _data;
   }
 
+  /**
+   * Sync data to the local sync-server (only active on localhost).
+   * Returns a Promise<{ ok, error? }>.
+   */
+  async function syncToFile(data, endpoint) {
+    endpoint = endpoint || '/api/save-packages';
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      return await res.json();
+    } catch (e) {
+      return { ok: false, error: e.message };
+    }
+  }
+
+  /**
+   * Check if the local sync server is running.
+   * Returns true/false.
+   */
+  async function isSyncServerAvailable() {
+    try {
+      const res = await fetch('/api/ping', { method: 'GET' });
+      if (!res.ok) return false;
+      const json = await res.json();
+      return json && json.ok === true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function resetData() {
     try {
       localStorage.removeItem(STORAGE_KEY);
@@ -277,6 +310,8 @@
     loadData,
     saveData,
     resetData,
+    syncToFile,
+    isSyncServerAvailable,
     buildCard,
     buildCategoryTile,
     renderCategories,

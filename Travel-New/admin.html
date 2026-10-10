@@ -134,6 +134,62 @@
                 background: #b91c1c;
             }
 
+        /* Sync status pill */
+        .sync-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 13px;
+            border-radius: 30px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: background 0.3s;
+        }
+        .sync-status-pill.server-live {
+            background: rgba(16,185,129,0.18);
+            color: #6ee7b7;
+            border-color: rgba(16,185,129,0.35);
+        }
+        .sync-status-pill.server-offline {
+            background: rgba(255,255,255,0.08);
+            color: #94a3b8;
+            border-color: rgba(255,255,255,0.1);
+        }
+        .sync-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .server-live .sync-dot {
+            animation: syncPulse 1.6s ease-in-out infinite;
+        }
+        @keyframes syncPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+        .btn-sync-now {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 10px 18px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+        .btn-sync-now:hover { opacity: 0.85; }
+        .btn-sync-now:disabled { opacity: 0.45; cursor: not-allowed; }
+
         /* Container */
         .admin-container {
             max-width: 1300px;
@@ -791,6 +847,11 @@
                 <i class="fa-solid fa-user-shield" style="color:#6ee7b7;"></i>
                 <span>User: <strong id="nav-user-name">admin</strong></span>
             </div>
+            <!-- Sync Server Status Badge -->
+            <div class="sync-status-pill server-offline" id="sync-status-pill" title="Local sync-server connection status">
+                <span class="sync-dot"></span>
+                <span id="sync-status-label">Checking server&hellip;</span>
+            </div>
             <a href="index.html" target="_blank" class="admin-nav-btn btn-view-site" title="Open live website in a new tab">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 <span>View Live Site</span>
@@ -971,10 +1032,24 @@
                         </div>
                     </div>
 
+                    <!-- Server-aware status banner -->
+                    <div id="sync-mode-banner" style="margin-bottom:18px; padding:12px 16px; border-radius:var(--radius-md); font-size:0.84rem; line-height:1.6; display:flex; gap:12px; align-items:flex-start;">
+                        <i class="fa-solid fa-circle-info" style="margin-top:2px; flex-shrink:0;"></i>
+                        <span id="sync-mode-text">Checking sync server status&hellip;</span>
+                    </div>
+
+                    <!-- One-click sync button (only meaningful on localhost) -->
+                    <div style="margin-bottom:18px;">
+                        <button class="btn-sync-now" id="btn-sync-to-server" disabled>
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Sync Now to Local Files</span>
+                        </button>
+                        <div id="sync-result-msg" style="margin-top:8px; font-size:0.8rem; color:var(--admin-text-sub);"></div>
+                    </div>
+
                     <p style="font-size:0.86rem; color:var(--admin-text-sub); line-height:1.6; margin-bottom:18px;">
-                        Changes made in this console are saved directly into your browser's persistent storage and are instantly
-                        visible across all website pages.
-                        You can download updated configuration files below to persist them into your project repository.
+                        All admin changes are also instantly saved to browser storage and visible across all pages.
+                        Use the download buttons below to get updated files for your GitHub repository.
                     </p>
 
                     <div style="display:flex; flex-direction:column; gap:12px;">
@@ -992,8 +1067,7 @@
                             <i class="fa-solid fa-rotate-left"></i> Reset to Factory Default Data
                         </button>
                         <span style="font-size:0.75rem; color:#dc2626;">
-                            Note: Reset will discard custom edits made in this
-                            browser.
+                            Note: Reset will discard custom edits made in this browser.
                         </span>
                     </div>
 
@@ -1282,6 +1356,104 @@
 
             // 2. Load dataset
             let dataset = await SP.loadData();
+
+            // 2b. Sync server detection + status UI
+            const isLocalhost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+            let syncServerLive = false;
+
+            async function updateSyncStatus() {
+                const pill  = document.getElementById('sync-status-pill');
+                const label = document.getElementById('sync-status-label');
+                const btn   = document.getElementById('btn-sync-to-server');
+                const banner = document.getElementById('sync-mode-banner');
+                const bannerText = document.getElementById('sync-mode-text');
+
+                if (!isLocalhost) {
+                    // Running on GitHub Pages or remote host
+                    syncServerLive = false;
+                    pill.className  = 'sync-status-pill server-offline';
+                    label.textContent = 'GitHub Mode';
+                    if (btn) btn.disabled = true;
+                    if (banner) {
+                        banner.style.background = '#fffbeb';
+                        banner.style.border = '1px solid #fcd34d';
+                        banner.style.color = '#92400e';
+                        bannerText.innerHTML = '<strong>GitHub Pages mode:</strong> The local sync server is not available here. All changes are saved to browser storage. Use the <strong>Download</strong> buttons below to get updated files, then commit them to your GitHub repository.';
+                    }
+                    return;
+                }
+
+                syncServerLive = await SP.isSyncServerAvailable();
+
+                if (syncServerLive) {
+                    pill.className  = 'sync-status-pill server-live';
+                    label.textContent = 'Server Live • Auto-Sync ON';
+                    if (btn) btn.disabled = false;
+                    if (banner) {
+                        banner.style.background = '#ecfdf5';
+                        banner.style.border = '1px solid #6ee7b7';
+                        banner.style.color = '#065f46';
+                        bannerText.innerHTML = '<strong>Local server detected (localhost:3000):</strong> Every save <em>automatically</em> writes updated <code>packages.json</code> and <code>packages-data.js</code> to disk. Commit those files to GitHub to publish changes.';
+                    }
+                } else {
+                    pill.className  = 'sync-status-pill server-offline';
+                    label.textContent = 'Server Offline';
+                    if (btn) btn.disabled = true;
+                    if (banner) {
+                        banner.style.background = '#f8fafc';
+                        banner.style.border = '1px solid #e2e8f0';
+                        banner.style.color = '#64748b';
+                        bannerText.innerHTML = 'Run <code>node sync-server.js</code> in your project folder to enable auto-sync to disk. Until then, use the <strong>Download</strong> buttons below to save files and commit them to GitHub.';
+                    }
+                }
+            }
+            await updateSyncStatus();
+
+            /**
+             * Auto-sync packages data to local server if running on localhost.
+             * Silent on GitHub Pages — no-op.
+             */
+            async function autoSync(data) {
+                if (!syncServerLive) return;
+                const resultEl = document.getElementById('sync-result-msg');
+                try {
+                    const result = await SP.syncToFile(data, '/api/save-packages');
+                    if (result && result.ok && resultEl) {
+                        resultEl.innerHTML = `<span style="color:#059669;"><i class="fa-solid fa-circle-check"></i> Auto-synced to disk &mdash; ${result.packages} packages, ${result.categories} categories (${new Date().toLocaleTimeString()})</span>`;
+                    }
+                } catch (e) {
+                    console.warn('Auto-sync failed:', e);
+                }
+            }
+
+            /**
+             * Auto-sync admin credentials to local server if running on localhost.
+             */
+            async function autoSyncAdmin(creds) {
+                if (!syncServerLive) return;
+                try {
+                    await SP.syncToFile(creds, '/api/save-admin');
+                } catch (e) {
+                    console.warn('Admin credential sync failed:', e);
+                }
+            }
+
+            // Manual "Sync Now" button
+            document.getElementById('btn-sync-to-server').addEventListener('click', async () => {
+                const btn = document.getElementById('btn-sync-to-server');
+                const resultEl = document.getElementById('sync-result-msg');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-rotate fa-spin"></i> Syncing...';
+                const result = await SP.syncToFile(dataset, '/api/save-packages');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-rotate"></i> Sync Now to Local Files';
+                if (result && result.ok) {
+                    showToast(`Synced: ${result.packages} packages, ${result.categories} categories saved to disk.`);
+                    if (resultEl) resultEl.innerHTML = `<span style="color:#059669;"><i class="fa-solid fa-circle-check"></i> Synced ${result.packages} packages &mdash; ${new Date().toLocaleTimeString()}</span>`;
+                } else {
+                    showToast('Sync failed: ' + (result && result.error ? result.error : 'Server unreachable'), 'error');
+                }
+            });
 
             // 3. Tab Switching
             const tabButtons = document.querySelectorAll('.admin-tab-btn');
@@ -1812,6 +1984,7 @@
                 }
 
                 SP.saveData(dataset);
+                autoSync(dataset);
                 closePkgModal();
                 refreshAllViews();
             });
@@ -1845,6 +2018,7 @@
                 }
 
                 SP.saveData(dataset);
+                autoSync(dataset);
                 closeCatModal();
                 refreshAllViews();
             });
@@ -1864,6 +2038,7 @@
                     if (pkg && confirm(`Are you sure you want to permanently delete package "${pkg.name}"?`)) {
                         dataset.packages = dataset.packages.filter(p => p.id !== id);
                         SP.saveData(dataset);
+                        autoSync(dataset);
                         showToast(`Package "${pkg.name}" deleted.`, 'error');
                         refreshAllViews();
                     }
@@ -1895,6 +2070,7 @@
                     if (confirm(msg)) {
                         dataset.categories = dataset.categories.filter(c => c.id !== id);
                         SP.saveData(dataset);
+                        autoSync(dataset);
                         showToast(`Category "${cat.label}" deleted.`, 'error');
                         refreshAllViews();
                     }
@@ -1937,13 +2113,16 @@
                 };
                 localStorage.setItem(CREDS_KEY, JSON.stringify(updatedCreds));
                 sessionStorage.setItem('saveron_admin_user', newUser);
+                autoSyncAdmin(updatedCreds);
 
                 document.getElementById('nav-user-name').textContent = newUser;
                 document.getElementById('setting-current-user').value = newUser;
                 document.getElementById('form-update-creds').reset();
                 document.getElementById('setting-current-user').value = newUser;
 
-                showToast('Admin credentials updated! You can download the updated admin.json below.');
+                showToast(syncServerLive
+                    ? 'Admin credentials updated and synced to admin.json!'
+                    : 'Admin credentials updated! Download admin.json below to save to GitHub.');
             });
 
             // 13. Settings Tab: Export packages.json
